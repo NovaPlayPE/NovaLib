@@ -23,8 +23,8 @@ public class ProxyConnectPacket extends Packet{
 		length = byteBuf.readInt();
 		address = (String) byteBuf.readCharSequence(length, Charsets.UTF_8);
 		port = byteBuf.readInt();
-		length = byteBuf.readInt();
-		switch(length) {
+		int aa = byteBuf.readInt();
+		switch(aa) {
 		case 0:
 			type = ConnectType.JAVA;
 			break;
