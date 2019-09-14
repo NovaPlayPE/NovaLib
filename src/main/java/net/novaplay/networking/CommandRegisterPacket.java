@@ -42,12 +42,14 @@ public class CommandRegisterPacket extends Packet implements IServerPacket {
 					length = byteBuf.readInt();
 					String name = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
 					boolean empty = byteBuf.readBoolean();
-					boolean needs = byteBuf.readBoolean();
-					if(needs) {
-						length = byteBuf.readInt();
-						String pname = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
-						length = byteBuf.readInt();
-						String p = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
+					if(type == ConnectType.JAVA) {
+						boolean needs = byteBuf.readBoolean();
+						if(needs) {
+							length = byteBuf.readInt();
+							String pname = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
+							length = byteBuf.readInt();
+							String p = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
+						}
 					}
 				}
 			}
@@ -60,20 +62,21 @@ public class CommandRegisterPacket extends Packet implements IServerPacket {
 		byteBuf.writeCharSequence(commandName,Charsets.UTF_8);
 		byteBuf.writeInt(type.getType());
 		byteBuf.writeBoolean(hasArgs);
-			byteBuf.writeInt(lines.size());
-			for(CommandLine line : lines) {
-				byteBuf.writeInt(line.getArguments().size());
-				for(CommandArgument args : line.getArguments()) {
-					byteBuf.writeInt(args.getName().length());
-					byteBuf.writeCharSequence(args.getName(),Charsets.UTF_8);
-					byteBuf.writeBoolean(args.isEmpty());
+		byteBuf.writeInt(lines.size());
+		for(CommandLine line : lines) {
+			byteBuf.writeInt(line.getArguments().size());
+			for(CommandArgument args : line.getArguments()) {
+				byteBuf.writeInt(args.getName().length());
+				byteBuf.writeCharSequence(args.getName(),Charsets.UTF_8);
+				byteBuf.writeBoolean(args.isEmpty());
+				if(type == ConnectType.JAVA) {
 					byteBuf.writeBoolean(args.needsParameter());
 					if(args.needsParameter()) {
 						byteBuf.writeInt(args.getCommandParameter().getParameterName().length());
 						byteBuf.writeCharSequence(args.getCommandParameter().getParameterName(), Charsets.UTF_8);
 						byteBuf.writeInt(args.getCommandParameter().getParameterType().length());
-						byteBuf.writeCharSequence(args.getCommandParameter().getParameterType(), Charsets.UTF_8);
-						
+						byteBuf.writeCharSequence(args.getCommandParameter().getParameterType(), Charsets.UTF_8);	
+					}
 				}
 			}
 		}
