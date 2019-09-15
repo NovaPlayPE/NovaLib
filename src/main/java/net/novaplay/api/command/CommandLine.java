@@ -2,11 +2,23 @@ package net.novaplay.api.command;
 
 import java.util.ArrayList;
 
+public class CommandLine {
 
-public interface CommandLine {
+	public ArrayList<CommandArgument> args = new ArrayList<CommandArgument>();
+	
+	public CommandLine() {}
+	
+	public void registerNewArguments(CommandArgument argument) {
+		if(!args.contains(argument)) {
+			args.add(argument);
+		}
+	}
+	
+	public ArrayList<CommandArgument> getArguments(){
+		return args;
+	}
 
-	int getId();
-	void registerNewArguments(CommandArgument argument);
-	ArrayList<CommandArgument> getArguments();
-	void setArguments(ArrayList<CommandArgument> args);
+	public int getId() {
+		return 0;
+	}
 }

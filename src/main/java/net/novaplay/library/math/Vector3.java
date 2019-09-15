@@ -71,7 +71,7 @@ public class Vector3 implements Cloneable{
         return this;
     }
 
-    public static final Vector3 rotateVector(Vector3 v, double yawDegrees, double pitchDegrees) {
+    public final Vector3 rotateVector(double yawDegrees, double pitchDegrees) {
         double yaw = Math.toRadians(-1 * (yawDegrees + 90));
         double pitch = Math.toRadians(-pitchDegrees);
 
@@ -83,12 +83,12 @@ public class Vector3 implements Cloneable{
         double initialX, initialY, initialZ;
         double x, y, z;
 
-        initialX = v.getX();
-        initialY = v.getY();
+        initialX = getX();
+        initialY = getY();
         x = initialX * cosPitch - initialY * sinPitch;
         y = initialX * sinPitch + initialY * cosPitch;
 
-        initialZ = v.getZ();
+        initialZ = getZ();
         initialX = x;
         z = initialZ * cosYaw - initialX * sinYaw;
         x = initialZ * sinYaw + initialX * cosYaw;
@@ -96,8 +96,8 @@ public class Vector3 implements Cloneable{
         return new Vector3(x, y, z);
     }
 
-    public static final double angleToXAxis(Vector3 vector) {
-        return Math.atan2(vector.getX(), vector.getY());
+    public final double angleToXAxis() {
+        return Math.atan2(getX(), getY());
     }
 	
 	public Vector3 clone() {

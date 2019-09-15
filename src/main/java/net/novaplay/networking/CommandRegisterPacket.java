@@ -11,6 +11,7 @@ import net.novaplay.networking.types.ConnectType;
 
 public class CommandRegisterPacket extends Packet implements IServerPacket {
 
+	
 	public String commandName;
 	public ConnectType type = ConnectType.JAVA;
 	public boolean hasArgs = false;
@@ -32,26 +33,35 @@ public class CommandRegisterPacket extends Packet implements IServerPacket {
 		}
 		hasArgs = byteBuf.readBoolean();
 		if(hasArgs) {
-			length = byteBuf.readInt();
+			length = byteBuf.readInt(); //command lines
 			lines = new ArrayList<CommandLine>(length);
 			ArrayList<CommandArgument> args;
 			for(int i = 0; i < length; i++) {
-				length = byteBuf.readInt();
+				CommandLine line = new CommandLine();
+				length = byteBuf.readInt(); //and now command arguments
 				args = new ArrayList<CommandArgument>(length);
 				for(int j = 0; j < length; j++){
 					length = byteBuf.readInt();
 					String name = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
 					boolean empty = byteBuf.readBoolean();
-					if(type == ConnectType.JAVA) {
+					CommandArgument arg = new CommandArgument(name);
+					arg.setEmpty(empty);
+					if(type == ConnectType.BEDROCK) {
 						boolean needs = byteBuf.readBoolean();
+						arg.setNeed(needs);
 						if(needs) {
 							length = byteBuf.readInt();
 							String pname = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
 							length = byteBuf.readInt();
 							String p = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
+							CommandParameter param = new CommandParameter(pname,p);
+							arg.registerParameter(param);
 						}
 					}
+					args.add(arg);
+					line.args = args;
 				}
+				lines.add(line);
 			}
 		}
 	}
@@ -62,20 +72,22 @@ public class CommandRegisterPacket extends Packet implements IServerPacket {
 		byteBuf.writeCharSequence(commandName,Charsets.UTF_8);
 		byteBuf.writeInt(type.getType());
 		byteBuf.writeBoolean(hasArgs);
-		byteBuf.writeInt(lines.size());
-		for(CommandLine line : lines) {
-			byteBuf.writeInt(line.getArguments().size());
-			for(CommandArgument args : line.getArguments()) {
-				byteBuf.writeInt(args.getName().length());
-				byteBuf.writeCharSequence(args.getName(),Charsets.UTF_8);
-				byteBuf.writeBoolean(args.isEmpty());
-				if(type == ConnectType.JAVA) {
-					byteBuf.writeBoolean(args.needsParameter());
-					if(args.needsParameter()) {
-						byteBuf.writeInt(args.getCommandParameter().getParameterName().length());
-						byteBuf.writeCharSequence(args.getCommandParameter().getParameterName(), Charsets.UTF_8);
-						byteBuf.writeInt(args.getCommandParameter().getParameterType().length());
-						byteBuf.writeCharSequence(args.getCommandParameter().getParameterType(), Charsets.UTF_8);	
+		if(hasArgs) {
+			byteBuf.writeInt(lines.size());
+			for(CommandLine line : lines) {
+				byteBuf.writeInt(line.getArguments().size());
+				for(CommandArgument args : line.getArguments()) {
+					byteBuf.writeInt(args.getName().length());
+					byteBuf.writeCharSequence(args.getName(),Charsets.UTF_8);
+					byteBuf.writeBoolean(args.isEmpty());
+					if(type == ConnectType.BEDROCK) {
+						byteBuf.writeBoolean(args.needsParameter());
+						if(args.needsParameter()) {
+							byteBuf.writeInt(args.getCommandParameter().getParameterName().length());
+							byteBuf.writeCharSequence(args.getCommandParameter().getParameterName(), Charsets.UTF_8);
+							byteBuf.writeInt(args.getCommandParameter().getParameterType().length());
+							byteBuf.writeCharSequence(args.getCommandParameter().getParameterType(), Charsets.UTF_8);	
+						}
 					}
 				}
 			}
