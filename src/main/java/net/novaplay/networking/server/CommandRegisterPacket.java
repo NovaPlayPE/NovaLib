@@ -1,4 +1,4 @@
-package net.novaplay.networking;
+package net.novaplay.networking.server;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
 import net.novaplay.api.command.*;
 import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.networking.IServerPacket;
 import net.novaplay.networking.types.ConnectType;
 
 public class CommandRegisterPacket extends Packet implements IServerPacket {

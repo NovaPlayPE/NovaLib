@@ -1,4 +1,4 @@
-package net.novaplay.networking;
+package net.novaplay.networking.player;
 
 import java.util.UUID;
 
@@ -6,12 +6,13 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.networking.IPlayerPacket;
 
-public class LogoutPacket extends Packet implements IPlayerPacket {
-
+public class LoginPacket extends Packet implements IPlayerPacket {
+	
 	public String username;
 	public UUID uuid;
-	public String reason;
+	public String serverId;
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
 		int length;
@@ -20,7 +21,7 @@ public class LogoutPacket extends Packet implements IPlayerPacket {
 		length = byteBuf.readInt();
 		uuid = getUuidFromString((String) byteBuf.readCharSequence(length,Charsets.UTF_8));
 		length = byteBuf.readInt();
-		reason = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
+		serverId = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
 	}
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
@@ -28,8 +29,8 @@ public class LogoutPacket extends Packet implements IPlayerPacket {
 		byteBuf.writeCharSequence(username, Charsets.UTF_8);
 		byteBuf.writeInt(getStringFromUuid(this.uuid).length());
 		byteBuf.writeCharSequence(getStringFromUuid(this.uuid), Charsets.UTF_8);
-		byteBuf.writeInt(reason.length());
-		byteBuf.writeCharSequence(reason, Charsets.UTF_8);
+		byteBuf.writeInt(serverId.length());
+		byteBuf.writeCharSequence(serverId, Charsets.UTF_8);
 	}
 	
 	public UUID getUuidFromString(String string) {
@@ -44,5 +45,5 @@ public class LogoutPacket extends Packet implements IPlayerPacket {
 	public String getStringFromUuid(UUID uuid) {
 		return uuid.toString();
 	}
-	
+
 }

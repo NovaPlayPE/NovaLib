@@ -1,4 +1,4 @@
-package net.novaplay.networking;
+package net.novaplay.networking.server;
 
 import com.google.common.base.Charsets;
 

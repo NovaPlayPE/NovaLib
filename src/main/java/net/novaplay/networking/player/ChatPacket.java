@@ -1,9 +1,10 @@
-package net.novaplay.networking;
+package net.novaplay.networking.player;
 
 import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.networking.IPlayerPacket;
 
 public class ChatPacket extends Packet implements IPlayerPacket {
 
