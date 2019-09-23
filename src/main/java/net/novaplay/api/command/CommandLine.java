@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CommandLine {
 
 	public ArrayList<CommandArgument> args = new ArrayList<CommandArgument>();
-	private int id = 0;
+	protected int id = 0;
 	public CommandLine() {this(0);}
 	public CommandLine(int id) { this.id = id; }
 	
