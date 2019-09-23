@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class CommandLine {
 
 	public ArrayList<CommandArgument> args = new ArrayList<CommandArgument>();
-	
-	public CommandLine() {}
+	private int id = 0;
+	public CommandLine() {this(0);}
+	public CommandLine(int id) { this.id = id; }
 	
 	public void registerNewArguments(CommandArgument argument) {
 		if(!args.contains(argument)) {
@@ -19,6 +20,6 @@ public class CommandLine {
 	}
 
 	public int getId() {
-		return 0;
+		return id;
 	}
 }
