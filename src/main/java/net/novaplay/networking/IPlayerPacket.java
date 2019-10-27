@@ -1,5 +1,3 @@
 package net.novaplay.networking;
 
-public interface IPlayerPacket {
-
-}
+public interface IPlayerPacket {}
