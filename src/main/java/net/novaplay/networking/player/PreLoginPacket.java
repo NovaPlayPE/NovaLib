@@ -8,7 +8,7 @@ import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.networking.IPlayerPacket;
 
-public class LoginPacket extends Packet implements IPlayerPacket{
+public class PreLoginPacket extends Packet implements IPlayerPacket {
 	
 	public String username;
 	public UUID uuid;
