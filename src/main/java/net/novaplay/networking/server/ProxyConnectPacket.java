@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.library.netty.packet.PacketBufferUtils;
 import net.novaplay.networking.types.ConnectType;
 
 public class ProxyConnectPacket extends Packet{
@@ -17,14 +18,11 @@ public class ProxyConnectPacket extends Packet{
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		int length;
-		length = byteBuf.readInt();
-		serverId = (String) byteBuf.readCharSequence(length, Charsets.UTF_8);
-		length = byteBuf.readInt();
-		address = (String) byteBuf.readCharSequence(length, Charsets.UTF_8);
+		serverId = PacketBufferUtils.readString(byteBuf);
+		address = PacketBufferUtils.readString(byteBuf);
 		port = byteBuf.readInt();
-		int aa = byteBuf.readInt();
-		switch(aa) {
+		int tip = byteBuf.readInt();
+		switch(tip) {
 		case 0:
 			type = ConnectType.JAVA;
 			break;
@@ -32,21 +30,17 @@ public class ProxyConnectPacket extends Packet{
 			type = ConnectType.BEDROCK;
 			break;
 		}
-		length = byteBuf.readInt();
-		password = (String) byteBuf.readCharSequence(length, Charsets.UTF_8);
+		password = PacketBufferUtils.readString(byteBuf);
 		success = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {	
-		byteBuf.writeInt(serverId.length());
-		byteBuf.writeCharSequence(serverId,Charsets.UTF_8);
-		byteBuf.writeInt(address.length());
-		byteBuf.writeCharSequence(address,Charsets.UTF_8);
+		PacketBufferUtils.writeString(byteBuf,serverId);
+		PacketBufferUtils.writeString(byteBuf,address);
 		byteBuf.writeInt(port);
 		byteBuf.writeInt(type.getType());
-		byteBuf.writeInt(password.length());
-		byteBuf.writeCharSequence(password,Charsets.UTF_8);
+		PacketBufferUtils.writeString(byteBuf,password);
 		byteBuf.writeBoolean(success);
 	}
 

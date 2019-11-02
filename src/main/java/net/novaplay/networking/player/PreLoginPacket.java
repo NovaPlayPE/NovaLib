@@ -17,7 +17,6 @@ public class PreLoginPacket extends Packet implements IPlayerPacket {
 	public String serverId;
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		int length;
 		username = PacketBufferUtils.readString(byteBuf);
 		uuid = PacketBufferUtils.readUUID(byteBuf);
 		kickMessage = PacketBufferUtils.readString(byteBuf);

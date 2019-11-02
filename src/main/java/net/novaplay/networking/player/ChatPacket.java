@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.library.netty.packet.PacketBufferUtils;
 import net.novaplay.networking.IPlayerPacket;
 
 public class ChatPacket extends Packet implements IPlayerPacket {
@@ -22,23 +23,16 @@ public class ChatPacket extends Packet implements IPlayerPacket {
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		int length;
-		length = byteBuf.readInt();
-		player = (String) byteBuf.readCharSequence(length, Charsets.UTF_8);
-		length = byteBuf.readInt();
-		message = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
-		length = byteBuf.readInt();
-		message = (String) byteBuf.readCharSequence(length, Charsets.UTF_8);
+		player = PacketBufferUtils.readString(byteBuf);
+		type = PacketBufferUtils.readString(byteBuf);
+		message = PacketBufferUtils.readString(byteBuf);
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		byteBuf.writeInt(player.length());
-		byteBuf.writeCharSequence(player, Charsets.UTF_8);
-		byteBuf.writeInt(type.length());
-		byteBuf.writeCharSequence(type, Charsets.UTF_8);
-		byteBuf.writeInt(message.length());
-		byteBuf.writeCharSequence(message, Charsets.UTF_8);
+		PacketBufferUtils.writeString(byteBuf,player);
+		PacketBufferUtils.writeString(byteBuf,type);
+		PacketBufferUtils.writeString(byteBuf,message);
 	}
 
 }
