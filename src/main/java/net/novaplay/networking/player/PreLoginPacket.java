@@ -6,6 +6,7 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.library.netty.packet.PacketBufferUtils;
 import net.novaplay.networking.IPlayerPacket;
 
 public class PreLoginPacket extends Packet implements IPlayerPacket {
@@ -17,38 +18,17 @@ public class PreLoginPacket extends Packet implements IPlayerPacket {
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
 		int length;
-		length = byteBuf.readInt();
-		username = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
-		length = byteBuf.readInt();
-		uuid = getUuidFromString((String) byteBuf.readCharSequence(length,Charsets.UTF_8));
-		length = byteBuf.readInt();
-		kickMessage = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
-		length = byteBuf.readInt();
-		serverId = (String) byteBuf.readCharSequence(length,Charsets.UTF_8);
+		username = PacketBufferUtils.readString(byteBuf);
+		uuid = PacketBufferUtils.readUUID(byteBuf);
+		kickMessage = PacketBufferUtils.readString(byteBuf);
+		serverId = PacketBufferUtils.readString(byteBuf);
 	}
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		byteBuf.writeInt(username.length());
-		byteBuf.writeCharSequence(username, Charsets.UTF_8);
-		byteBuf.writeInt(getStringFromUuid(this.uuid).length());
-		byteBuf.writeCharSequence(getStringFromUuid(this.uuid), Charsets.UTF_8);
-		byteBuf.writeInt(kickMessage.length());
-		byteBuf.writeCharSequence(kickMessage,Charsets.UTF_8);
-		byteBuf.writeInt(serverId.length());
-		byteBuf.writeCharSequence(serverId, Charsets.UTF_8);
-	}
-	
-	public UUID getUuidFromString(String string) {
-		try {
-			return UUID.fromString(string);
-		} catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public String getStringFromUuid(UUID uuid) {
-		return uuid.toString();
+		PacketBufferUtils.writeString(byteBuf,username);
+		PacketBufferUtils.writeUUID(byteBuf,uuid);
+		PacketBufferUtils.writeString(byteBuf,kickMessage);
+		PacketBufferUtils.writeString(byteBuf,serverId);
 	}
 
 }
