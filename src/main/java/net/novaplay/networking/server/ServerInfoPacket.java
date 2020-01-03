@@ -1,20 +1,19 @@
 package net.novaplay.networking.server;
 
-import com.google.common.base.Charsets;
+import java.util.ArrayList;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.PacketBufferUtils;
 import net.novaplay.networking.types.ConnectType;
 
-public class ProxyConnectPacket extends Packet{
-
+public class ServerInfoPacket extends Packet{
+	
 	public String serverId = "";
 	public String address = "";
-	public String password = "";
-	public int port = 25565;
-	public ConnectType type = ConnectType.JAVA;
-	public boolean success = false;
+	public int port = 19132;
+	public ConnectType type = ConnectType.BEDROCK;
+	public ArrayList<String> players = new ArrayList<String>();
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
@@ -22,18 +21,23 @@ public class ProxyConnectPacket extends Packet{
 		address = PacketBufferUtils.readString(byteBuf);
 		port = byteBuf.readInt();
 		type = PacketBufferUtils.readConnectType(byteBuf);
-		password = PacketBufferUtils.readString(byteBuf);
-		success = byteBuf.readBoolean();
+		int c = byteBuf.readInt();
+		for(int i = 0; i < c; i++) {
+			String p = PacketBufferUtils.readString(byteBuf);
+			players.add(p);
+		}
 	}
 
 	@Override
-	public void write(ByteBuf byteBuf) throws Exception {	
+	public void write(ByteBuf byteBuf) throws Exception {
 		PacketBufferUtils.writeString(byteBuf,serverId);
 		PacketBufferUtils.writeString(byteBuf,address);
 		byteBuf.writeInt(port);
 		PacketBufferUtils.writeConnectType(byteBuf,type);
-		PacketBufferUtils.writeString(byteBuf,password);
-		byteBuf.writeBoolean(success);
+		byteBuf.writeInt(players.size());
+		for(String pla : players) {
+			PacketBufferUtils.writeString(byteBuf,pla);
+		}
 	}
 
 }
