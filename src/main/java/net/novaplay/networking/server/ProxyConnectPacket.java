@@ -5,9 +5,10 @@ import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.PacketBufferUtils;
+import net.novaplay.networking.IServerPacket;
 import net.novaplay.networking.types.ConnectType;
 
-public class ProxyConnectPacket extends Packet{
+public class ProxyConnectPacket extends Packet implements IServerPacket{
 
 	public String serverId = "";
 	public String address = "";

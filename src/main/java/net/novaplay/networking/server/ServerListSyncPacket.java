@@ -3,9 +3,11 @@ package net.novaplay.networking.server;
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.PacketBufferUtils;
+import net.novaplay.networking.IServerPacket;
+
 import java.util.*;
 
-public class ServerListSyncPacket extends Packet {
+public class ServerListSyncPacket extends Packet implements IServerPacket{
 
 	public ArrayList<String> serverList = new ArrayList<String>();
 	

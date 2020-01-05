@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.PacketBufferUtils;
+import net.novaplay.networking.IServerPacket;
 import net.novaplay.networking.types.ConnectType;
 
-public class ServerInfoPacket extends Packet{
+public class ServerInfoPacket extends Packet implements IServerPacket{
 	
 	public String serverId = "";
 	public String address = "";
