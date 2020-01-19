@@ -22,7 +22,6 @@ public class LogoutPacket extends Packet implements IPlayerPacket {
 	}
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		byteBuf.writeCharSequence(reason, Charsets.UTF_8);
 		PacketBufferUtils.writeString(byteBuf, username);
 		PacketBufferUtils.writeUUID(byteBuf,uuid);
 		PacketBufferUtils.writeString(byteBuf,reason);
