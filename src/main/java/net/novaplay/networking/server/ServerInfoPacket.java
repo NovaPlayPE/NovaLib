@@ -14,6 +14,7 @@ public class ServerInfoPacket extends Packet implements IServerPacket{
 	public String address = "";
 	public int port = 19132;
 	public ConnectType type = ConnectType.BEDROCK;
+	public boolean isMain = true;
 	public ArrayList<String> players = new ArrayList<String>();
 	
 	@Override
@@ -22,6 +23,7 @@ public class ServerInfoPacket extends Packet implements IServerPacket{
 		address = PacketBufferUtils.readString(byteBuf);
 		port = byteBuf.readInt();
 		type = PacketBufferUtils.readConnectType(byteBuf);
+		isMain = byteBuf.readBoolean();
 		int c = byteBuf.readInt();
 		for(int i = 0; i < c; i++) {
 			String p = PacketBufferUtils.readString(byteBuf);
@@ -35,6 +37,7 @@ public class ServerInfoPacket extends Packet implements IServerPacket{
 		PacketBufferUtils.writeString(byteBuf,address);
 		byteBuf.writeInt(port);
 		PacketBufferUtils.writeConnectType(byteBuf,type);
+		byteBuf.writeBoolean(isMain);
 		byteBuf.writeInt(players.size());
 		for(String pla : players) {
 			PacketBufferUtils.writeString(byteBuf,pla);
