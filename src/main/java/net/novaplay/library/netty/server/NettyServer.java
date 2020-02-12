@@ -35,22 +35,6 @@ public class NettyServer {
     @Getter
     @Setter
     private int port = 8000;
-    
-    public void setPort(int p) {
-    	port = p;
-    }
-    
-    public int getPort() {
-    	return port;
-    }
-    
-    public void setFuture(ChannelFuture f) {
-    	future = f;
-    }
-    
-    public ChannelFuture getFuture() {
-    	return future;
-    }
 
     public void startServer(int port, Callback callback) {
         setPort( port );
