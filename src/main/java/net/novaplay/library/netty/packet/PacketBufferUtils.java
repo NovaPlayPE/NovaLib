@@ -6,7 +6,6 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 
 import io.netty.buffer.ByteBuf;
-import net.novaplay.networking.types.ConnectType;
 
 public class PacketBufferUtils {
 	
@@ -33,20 +32,6 @@ public class PacketBufferUtils {
 		}
 	}
 	
-	public static void writeConnectType(ByteBuf buf, ConnectType type) {
-		buf.writeInt(type.getType());
-	}
-	
-	public static ConnectType readConnectType(ByteBuf buf) {
-		int type = buf.readInt();
-		switch(type) {
-		case 0:
-			return ConnectType.JAVA;
-		case 1:
-			return ConnectType.BEDROCK;
-		}
-		return ConnectType.JAVA;
-	}
 	
 	public static void writeSignedVarInt(ByteBuf buf, int integer) {
 		writeUnsignedVarInt(buf, (integer << 1) ^ (integer >> 31));

@@ -5,26 +5,23 @@ import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.PacketBufferUtils;
 import net.novaplay.networking.IPlayerPacket;
 
-public class KickPacket extends Packet implements IPlayerPacket{
-	
-	public String player;
-	public String reason = "unknown";
-	public String type = "kick"; //there is also ban
+public class TransferPacket extends Packet implements IPlayerPacket{
+
+	public String player = null;
+	public String destination = null;
 	public boolean handled = false;
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
 		player = PacketBufferUtils.readString(byteBuf);
-		reason = PacketBufferUtils.readString(byteBuf);
-		type = PacketBufferUtils.readString(byteBuf);
+		destination = PacketBufferUtils.readString(byteBuf);
 		handled = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
 		PacketBufferUtils.writeString(byteBuf,player);
-		PacketBufferUtils.writeString(byteBuf,reason);
-		PacketBufferUtils.writeString(byteBuf,type);
+		PacketBufferUtils.writeString(byteBuf,destination);
 		byteBuf.writeBoolean(handled);
 	}
 

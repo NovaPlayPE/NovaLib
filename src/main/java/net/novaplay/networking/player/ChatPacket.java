@@ -18,14 +18,21 @@ public class ChatPacket extends Packet implements IPlayerPacket {
 	 * subtitle
 	 * actionbar
 	 */
-	public String type = "chat";
+	public String type = CHAT;
 	public String message;
+	public boolean handled = false;
+	
+	public static String CHAT = "chat";
+	public static String TIP = "tip";
+	public static String POPUP = "popup";
+	public static String TITLE = "title";
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
 		player = PacketBufferUtils.readString(byteBuf);
 		type = PacketBufferUtils.readString(byteBuf);
 		message = PacketBufferUtils.readString(byteBuf);
+		handled = byteBuf.readBoolean();
 	}
 
 	@Override
@@ -33,6 +40,7 @@ public class ChatPacket extends Packet implements IPlayerPacket {
 		PacketBufferUtils.writeString(byteBuf,player);
 		PacketBufferUtils.writeString(byteBuf,type);
 		PacketBufferUtils.writeString(byteBuf,message);
+		byteBuf.writeBoolean(handled);
 	}
 
 }
