@@ -4,74 +4,74 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-public class Vector3 implements Cloneable{
+public class Vector3f implements Cloneable{
 
 	
 	@Getter
 	@Setter
-	public double x;
+	public float x;
 	@Getter
 	@Setter
-	public double y;
+	public float y;
 	@Getter
 	@Setter
-	public double z;
+	public float z;
 
-	public Vector3(@NonNull double x, @NonNull double y, @NonNull double z) {
+	public Vector3f(@NonNull float x, @NonNull float y, @NonNull float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Vector3) {
-			Vector3 v = (Vector3) obj;
+		if(obj instanceof Vector3d) {
+			Vector3d v = (Vector3d) obj;
 			return this.x == v.x && this.y == v.y && this.z == v.z;
 		}
 		return false;
 	}
 	
-    public final Vector3 rotateAroundAxisX(double angle) {
+    public final Vector3f rotateAroundAxisX(double angle) {
         double y, z, cos, sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
         y = getY() * cos - getZ() * sin;
         z = getY() * sin + getZ() * cos;
-        setY(y);
-        setZ(z);
+        setY((float)y);
+        setZ((float)z);
         return this;
     }
 
-    public final Vector3 rotateAroundAxisY(double angle) {
+    public final Vector3f rotateAroundAxisY(double angle) {
         double x, z, cos, sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
         x = getX() * cos + getZ() * sin;
         z = getX() * -sin + getZ() * cos;
-        setX(x);
-        setZ(z);
+        setX((float)x);
+        setZ((float)z);
         return this;
     }
 
-    public final Vector3 rotateAroundAxisZ(double angle) {
+    public final Vector3f rotateAroundAxisZ(double angle) {
         double x, y, cos, sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
         x = getX() * cos - getY() * sin;
         y = getX() * sin + getY() * cos;
-        setX(x);
-        setY(y);
+        setX((float)x);
+        setY((float)y);
         return this;
     }
 
-    public final Vector3 rotateVector(double angleX, double angleY, double angleZ) {
+    public final Vector3f rotateVector(double angleX, double angleY, double angleZ) {
         rotateAroundAxisX(angleX);
         rotateAroundAxisY(angleY);
         rotateAroundAxisZ(angleZ);
         return this;
     }
 
-    public final Vector3 rotateVector(double yawDegrees, double pitchDegrees) {
+    public final Vector3f rotateVector(double yawDegrees, double pitchDegrees) {
         double yaw = Math.toRadians(-1 * (yawDegrees + 90));
         double pitch = Math.toRadians(-pitchDegrees);
 
@@ -93,16 +93,26 @@ public class Vector3 implements Cloneable{
         z = initialZ * cosYaw - initialX * sinYaw;
         x = initialZ * sinYaw + initialX * cosYaw;
 
-        return new Vector3(x, y, z);
+        return new Vector3f((float)x, (float)y, (float)z);
     }
 
     public final double angleToXAxis() {
         return Math.atan2(getX(), getY());
     }
+    
+    public Vector3d asDouble() {
+    	Vector3d vec = new Vector3d((double)getX(), (double)getY(), (double)getZ());
+    	return vec;
+    }
+    
+    public Vector3i asInt() {
+    	Vector3i vec = new Vector3i((int)getX(),(int)getY(),(int)getZ());
+    	return vec;
+    }
 	
-	public Vector3 clone() {
+	public Vector3f clone() {
 		try {
-            return (Vector3) super.clone();
+            return (Vector3f) super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }
