@@ -24,81 +24,149 @@ public class Vector3i implements Cloneable{
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Vector3d) {
-			Vector3d v = (Vector3d) obj;
+		if(obj instanceof Vector3i) {
+			Vector3i v = (Vector3i) obj;
 			return this.x == v.x && this.y == v.y && this.z == v.z;
 		}
 		return false;
 	}
 	
-    public final Vector3i rotateAroundAxisX(double angle) {
-        double y, z, cos, sin;
-        cos = Math.cos(angle);
-        sin = Math.sin(angle);
-        y = getY() * cos - getZ() * sin;
-        z = getY() * sin + getZ() * cos;
-        setY((int)y);
-        setZ((int)z);
-        return this;
-    }
+	public Vector3i add(double value) {
+		this.x += value;
+		this.y += value;
+		this.z += value;
+		return this;
+	}
 
-    public final Vector3i rotateAroundAxisY(double angle) {
-        double x, z, cos, sin;
-        cos = Math.cos(angle);
-        sin = Math.sin(angle);
-        x = getX() * cos + getZ() * sin;
-        z = getX() * -sin + getZ() * cos;
-        setX((int)x);
-        setZ((int)z);
-        return this;
-    }
+	public Vector3i add(@NonNull Vector3i v) {
+		this.x += v.x;
+		this.y += v.y;
+		this.z += v.z;
+		return this;
+	}
 
-    public final Vector3i rotateAroundAxisZ(double angle) {
-        double x, y, cos, sin;
-        cos = Math.cos(angle);
-        sin = Math.sin(angle);
-        x = getX() * cos - getY() * sin;
-        y = getX() * sin + getY() * cos;
-        setX((int)x);
-        setY((int)y);
-        return this;
-    }
+	public Vector3i subtract(double value) {
+		this.x -= value;
+		this.y -= value;
+		this.z -= value;
+		return this;
+	}
 
-    public final Vector3i rotateVector(double angleX, double angleY, double angleZ) {
-        rotateAroundAxisX(angleX);
-        rotateAroundAxisY(angleY);
-        rotateAroundAxisZ(angleZ);
-        return this;
-    }
+	public Vector3i subtract(@NonNull Vector3i v) {
+		this.x -= v.x;
+		this.y -= v.y;
+		this.z -= v.z;
+		return this;
+	}
 
-    public final Vector3i rotateVector(double yawDegrees, double pitchDegrees) {
-        double yaw = Math.toRadians(-1 * (yawDegrees + 90));
-        double pitch = Math.toRadians(-pitchDegrees);
+	public Vector3i multiply(double value) {
+		this.x *= value;
+		this.y *= value;
+		this.z *= value;
+		return this;
+	}
 
-        double cosYaw = Math.cos(yaw);
-        double cosPitch = Math.cos(pitch);
-        double sinYaw = Math.sin(yaw);
-        double sinPitch = Math.sin(pitch);
+	public Vector3i multiply(@NonNull Vector3i v) {
+		this.x *= v.x;
+		this.y *= v.y;
+		this.z *= v.z;
+		return this;
+	}
 
-        double initialX, initialY, initialZ;
-        double x, y, z;
+	public Vector3i divide(double value) {
+		this.x /= value;
+		this.y /= value;
+		this.z /= value;
+		return this;
+	}
 
-        initialX = getX();
-        initialY = getY();
-        x = initialX * cosPitch - initialY * sinPitch;
-        y = initialX * sinPitch + initialY * cosPitch;
+	public Vector3i divide(@NonNull Vector3i v) {
+		this.x /= v.x;
+		this.y /= v.y;
+		this.z /= v.z;
+		return this;
+	}
 
-        initialZ = getZ();
-        initialX = x;
-        z = initialZ * cosYaw - initialX * sinYaw;
-        x = initialZ * sinYaw + initialX * cosYaw;
+	public Vector3i copy(@NonNull Vector3i v) {
+		this.x = v.x;
+		this.y = v.y;
+		this.z = v.z;
+		return this;
+	}
 
-        return new Vector3i((int)x, (int)y, (int)z);
-    }
+	public Vector3i normalize() {
+		double length = length();
+		this.x /= length;
+		this.y /= length;
+		this.z /= length;
+		return this;
+	}
 
-    public final double angleToXAxis() {
-        return Math.atan2(getX(), getY());
-    }
+	public Vector3i zero() {
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+		return this;
+	}
+
+	public double length() {
+		return Math.sqrt(MathUtils.square(this.x) + MathUtils.square(this.y) + MathUtils.square(this.z));
+	}
+
+	public double lengthSquared() {
+		return MathUtils.square(this.x) + MathUtils.square(this.y) + MathUtils.square(this.z);
+	}
+
+	public double distance(@NonNull Vector3d v) {
+		return Math
+				.sqrt(MathUtils.square(this.x - v.x) + MathUtils.square(this.y - v.y) + MathUtils.square(this.z - v.z));
+	}
+
+	public double distanceSquared(@NonNull Vector3d v) {
+		return MathUtils.square(this.x - v.x) + MathUtils.square(this.y - v.y) + MathUtils.square(this.z - v.z);
+	}
+
+	public float angle(@NonNull Vector3i other) {
+		double dot = MathUtils.constrainDoubleToRange(dot(other) / (length() * other.length()), -1.0, 1.0);
+
+		return (float) Math.acos(dot);
+	}
+
+	public double dot(@NonNull Vector3i other) {
+		return this.x * other.x + this.y * other.y + this.z * other.z;
+	}
+
+	public Vector3i crossProduct(@NonNull Vector3i o) {
+		int newX = this.y * o.z - o.y * this.z;
+		int newY = this.z * o.x - o.z * this.x;
+		int newZ = this.x * o.y - o.x * this.y;
+
+		this.x = newX;
+		this.y = newY;
+		this.z = newZ;
+		return this;
+	}
+
+	public Vector3i getCrossProduct(@NonNull Vector3i o) {
+		int x = this.y * o.z - o.y * this.z;
+		int y = this.z * o.x - o.z * this.x;
+		int z = this.x * o.y - o.x * this.y;
+		return new Vector3i(x, y, z);
+	}
+
+	public Vector3i midpoint(@NonNull Vector3i other) {
+		x = (x + other.x) / 2;
+		y = (y + other.y) / 2;
+		z = (z + other.z) / 2;
+		return this;
+	}
+
+	public Vector3i getMidpoint(@NonNull Vector3i other) {
+		int x = (this.x + other.x) / 2;
+		int y = (this.y + other.y) / 2;
+		int z = (this.z + other.z) / 2;
+		return new Vector3i(x, y, z);
+	}
     
     public Vector3d asDouble() {
     	Vector3d vec = new Vector3d((double)getX(), (double)getY(), (double)getZ());

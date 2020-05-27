@@ -7,7 +7,7 @@ import com.google.common.base.Preconditions;
 
 import io.netty.buffer.ByteBuf;
 
-public class PacketBufferUtils {
+public class ByteBufferUtils {
 	
 	public static void writeString(ByteBuf buf, String string) {
 		buf.writeInt(string.length());

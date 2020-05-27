@@ -4,7 +4,7 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.PacketBufferUtils;
+import net.novaplay.library.netty.packet.ByteBufferUtils;
 import net.novaplay.networking.IServerPacket;
 
 public class ProxyConnectPacket extends Packet implements IServerPacket{
@@ -17,19 +17,19 @@ public class ProxyConnectPacket extends Packet implements IServerPacket{
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		serverId = PacketBufferUtils.readString(byteBuf);
-		address = PacketBufferUtils.readString(byteBuf);
+		serverId = ByteBufferUtils.readString(byteBuf);
+		address = ByteBufferUtils.readString(byteBuf);
 		port = byteBuf.readInt();
-		password = PacketBufferUtils.readString(byteBuf);
+		password = ByteBufferUtils.readString(byteBuf);
 		success = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {	
-		PacketBufferUtils.writeString(byteBuf,serverId);
-		PacketBufferUtils.writeString(byteBuf,address);
+		ByteBufferUtils.writeString(byteBuf,serverId);
+		ByteBufferUtils.writeString(byteBuf,address);
 		byteBuf.writeInt(port);
-		PacketBufferUtils.writeString(byteBuf,password);
+		ByteBufferUtils.writeString(byteBuf,password);
 		byteBuf.writeBoolean(success);
 	}
 

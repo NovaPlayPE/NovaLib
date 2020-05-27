@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.PacketBufferUtils;
+import net.novaplay.library.netty.packet.ByteBufferUtils;
 import net.novaplay.networking.IServerPacket;
 
 public class PlayerInfoPacket extends Packet implements IServerPacket{
@@ -17,18 +17,18 @@ public class PlayerInfoPacket extends Packet implements IServerPacket{
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		player = PacketBufferUtils.readString(byteBuf);
-		uuid = PacketBufferUtils.readUUID(byteBuf);
-		serverId = PacketBufferUtils.readString(byteBuf);
+		player = ByteBufferUtils.readString(byteBuf);
+		uuid = ByteBufferUtils.readUUID(byteBuf);
+		serverId = ByteBufferUtils.readString(byteBuf);
 		online = byteBuf.readBoolean();
 		handled = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		PacketBufferUtils.writeString(byteBuf,player);
-		PacketBufferUtils.writeUUID(byteBuf,uuid);
-		PacketBufferUtils.writeString(byteBuf,serverId);
+		ByteBufferUtils.writeString(byteBuf,player);
+		ByteBufferUtils.writeUUID(byteBuf,uuid);
+		ByteBufferUtils.writeString(byteBuf,serverId);
 		byteBuf.writeBoolean(online);
 		byteBuf.writeBoolean(handled);
 	}

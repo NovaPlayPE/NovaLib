@@ -6,7 +6,7 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.PacketBufferUtils;
+import net.novaplay.library.netty.packet.ByteBufferUtils;
 import net.novaplay.networking.IPlayerPacket;
 
 public class LogoutPacket extends Packet implements IPlayerPacket {
@@ -16,15 +16,15 @@ public class LogoutPacket extends Packet implements IPlayerPacket {
 	public String reason;
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		username = PacketBufferUtils.readString(byteBuf);
-		uuid = PacketBufferUtils.readUUID(byteBuf);
-		reason = PacketBufferUtils.readString(byteBuf);
+		username = ByteBufferUtils.readString(byteBuf);
+		uuid = ByteBufferUtils.readUUID(byteBuf);
+		reason = ByteBufferUtils.readString(byteBuf);
 	}
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		PacketBufferUtils.writeString(byteBuf, username);
-		PacketBufferUtils.writeUUID(byteBuf,uuid);
-		PacketBufferUtils.writeString(byteBuf,reason);
+		ByteBufferUtils.writeString(byteBuf, username);
+		ByteBufferUtils.writeUUID(byteBuf,uuid);
+		ByteBufferUtils.writeString(byteBuf,reason);
 	}
 	
 }
