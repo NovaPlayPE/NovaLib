@@ -1,9 +1,9 @@
 package net.novaplay.networking.player;
 
 import io.netty.buffer.ByteBuf;
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.ByteBufferUtils;
-import net.novaplay.networking.IPlayerPacket;
+import net.novaplay.bcproxy.networking.IPlayerPacket;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.library.utils.ByteBufUtils;
 
 public class TransferPacket extends Packet implements IPlayerPacket{
 
@@ -13,15 +13,15 @@ public class TransferPacket extends Packet implements IPlayerPacket{
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		player = ByteBufferUtils.readString(byteBuf);
-		destination = ByteBufferUtils.readString(byteBuf);
+		player = ByteBufUtils.readString(byteBuf);
+		destination = ByteBufUtils.readString(byteBuf);
 		handled = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		ByteBufferUtils.writeString(byteBuf,player);
-		ByteBufferUtils.writeString(byteBuf,destination);
+		ByteBufUtils.writeString(byteBuf,player);
+		ByteBufUtils.writeString(byteBuf,destination);
 		byteBuf.writeBoolean(handled);
 	}
 

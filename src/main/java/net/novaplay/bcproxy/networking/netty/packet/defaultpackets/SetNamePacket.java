@@ -1,12 +1,13 @@
-package net.novaplay.library.netty.packet.defaultpackets;
+package net.novaplay.bcproxy.networking.netty.packet.defaultpackets;
 
 import com.google.common.base.Charsets;
-import net.novaplay.library.netty.packet.Packet;
+
 import io.netty.buffer.ByteBuf;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
 
 import java.io.IOException;
 

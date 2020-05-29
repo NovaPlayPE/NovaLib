@@ -1,4 +1,4 @@
-package net.novaplay.library.netty.packet;
+package net.novaplay.bcproxy.networking.netty.packet;
 
 import com.google.common.base.Charsets;
 import net.novaplay.library.netty.PacketHandler;

@@ -1,4 +1,4 @@
-package net.novaplay.library.netty.packet;
+package net.novaplay.library.utils;
 
 import java.util.*;
 
@@ -7,7 +7,7 @@ import com.google.common.base.Preconditions;
 
 import io.netty.buffer.ByteBuf;
 
-public class ByteBufferUtils {
+public class ByteBufUtils {
 	
 	public static void writeString(ByteBuf buf, String string) {
 		buf.writeInt(string.length());

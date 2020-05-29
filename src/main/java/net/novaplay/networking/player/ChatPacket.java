@@ -3,9 +3,9 @@ package net.novaplay.networking.player;
 import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.ByteBufferUtils;
-import net.novaplay.networking.IPlayerPacket;
+import net.novaplay.bcproxy.networking.IPlayerPacket;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.library.utils.ByteBufUtils;
 
 public class ChatPacket extends Packet implements IPlayerPacket {
 
@@ -29,17 +29,17 @@ public class ChatPacket extends Packet implements IPlayerPacket {
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		player = ByteBufferUtils.readString(byteBuf);
-		type = ByteBufferUtils.readString(byteBuf);
-		message = ByteBufferUtils.readString(byteBuf);
+		player = ByteBufUtils.readString(byteBuf);
+		type = ByteBufUtils.readString(byteBuf);
+		message = ByteBufUtils.readString(byteBuf);
 		handled = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		ByteBufferUtils.writeString(byteBuf,player);
-		ByteBufferUtils.writeString(byteBuf,type);
-		ByteBufferUtils.writeString(byteBuf,message);
+		ByteBufUtils.writeString(byteBuf,player);
+		ByteBufUtils.writeString(byteBuf,type);
+		ByteBufUtils.writeString(byteBuf,message);
 		byteBuf.writeBoolean(handled);
 	}
 

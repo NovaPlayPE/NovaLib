@@ -3,9 +3,9 @@ package net.novaplay.networking.server;
 import java.util.ArrayList;
 
 import io.netty.buffer.ByteBuf;
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.ByteBufferUtils;
-import net.novaplay.networking.IServerPacket;
+import net.novaplay.bcproxy.networking.IServerPacket;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.library.utils.ByteBufUtils;
 
 public class ServerInfoPacket extends Packet implements IServerPacket{
 	
@@ -17,26 +17,26 @@ public class ServerInfoPacket extends Packet implements IServerPacket{
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		serverId = ByteBufferUtils.readString(byteBuf);
-		address = ByteBufferUtils.readString(byteBuf);
+		serverId = ByteBufUtils.readString(byteBuf);
+		address = ByteBufUtils.readString(byteBuf);
 		port = byteBuf.readInt();
 		isMain = byteBuf.readBoolean();
 		int c = byteBuf.readInt();
 		for(int i = 0; i < c; i++) {
-			String p = ByteBufferUtils.readString(byteBuf);
+			String p = ByteBufUtils.readString(byteBuf);
 			players.add(p);
 		}
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		ByteBufferUtils.writeString(byteBuf,serverId);
-		ByteBufferUtils.writeString(byteBuf,address);
+		ByteBufUtils.writeString(byteBuf,serverId);
+		ByteBufUtils.writeString(byteBuf,address);
 		byteBuf.writeInt(port);
 		byteBuf.writeBoolean(isMain);
 		byteBuf.writeInt(players.size());
 		for(String pla : players) {
-			ByteBufferUtils.writeString(byteBuf,pla);
+			ByteBufUtils.writeString(byteBuf,pla);
 		}
 	}
 

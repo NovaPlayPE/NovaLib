@@ -1,10 +1,10 @@
-package net.novaplay.library.netty;
+package net.novaplay.bcproxy.networking.netty;
 
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.defaultpackets.DisconnectPacket;
-import net.novaplay.library.netty.packet.defaultpackets.ErrorPacket;
-import net.novaplay.library.netty.packet.defaultpackets.PacketTransferPacket;
-import net.novaplay.library.netty.packet.defaultpackets.SetNamePacket;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.bcproxy.networking.netty.packet.defaultpackets.DisconnectPacket;
+import net.novaplay.bcproxy.networking.netty.packet.defaultpackets.ErrorPacket;
+import net.novaplay.bcproxy.networking.netty.packet.defaultpackets.PacketTransferPacket;
+import net.novaplay.bcproxy.networking.netty.packet.defaultpackets.SetNamePacket;
 import io.netty.channel.Channel;
 
 import java.util.ArrayList;

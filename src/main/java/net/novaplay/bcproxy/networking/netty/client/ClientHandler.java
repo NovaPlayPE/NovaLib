@@ -1,11 +1,11 @@
-package net.novaplay.library.netty.client;
+package net.novaplay.bcproxy.networking.netty.client;
 
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.bcproxy.networking.netty.packet.defaultpackets.DisconnectPacket;
+import net.novaplay.bcproxy.networking.netty.packet.defaultpackets.ErrorPacket;
 import net.novaplay.library.netty.ConnectionListener;
 import net.novaplay.library.netty.NettyHandler;
 import net.novaplay.library.netty.PacketHandler;
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.defaultpackets.DisconnectPacket;
-import net.novaplay.library.netty.packet.defaultpackets.ErrorPacket;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

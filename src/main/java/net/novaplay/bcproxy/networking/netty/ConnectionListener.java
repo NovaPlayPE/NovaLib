@@ -1,4 +1,4 @@
-package net.novaplay.library.netty;
+package net.novaplay.bcproxy.networking.netty;
 
 import io.netty.channel.ChannelHandlerContext;
 

@@ -1,9 +1,9 @@
-package net.novaplay.library.netty;
+package net.novaplay.bcproxy.networking.netty;
 
+import net.novaplay.bcproxy.networking.netty.client.NettyClient;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.bcproxy.networking.netty.server.NettyServer;
 import net.novaplay.library.callback.Callback;
-import net.novaplay.library.netty.client.NettyClient;
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.server.NettyServer;
 import io.netty.channel.Channel;
 import lombok.Getter;
 import lombok.Setter;

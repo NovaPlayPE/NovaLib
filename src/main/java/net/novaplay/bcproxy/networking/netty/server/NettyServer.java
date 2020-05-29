@@ -1,9 +1,9 @@
-package net.novaplay.library.netty.server;
+package net.novaplay.bcproxy.networking.netty.server;
 
+import net.novaplay.bcproxy.networking.netty.packet.PacketDecoder;
+import net.novaplay.bcproxy.networking.netty.packet.PacketEncoder;
 import net.novaplay.library.callback.Callback;
 import net.novaplay.library.netty.NettyHandler;
-import net.novaplay.library.netty.packet.PacketDecoder;
-import net.novaplay.library.netty.packet.PacketEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

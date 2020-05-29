@@ -3,9 +3,9 @@ package net.novaplay.networking.server;
 import java.util.UUID;
 
 import io.netty.buffer.ByteBuf;
-import net.novaplay.library.netty.packet.Packet;
-import net.novaplay.library.netty.packet.ByteBufferUtils;
-import net.novaplay.networking.IServerPacket;
+import net.novaplay.bcproxy.networking.IServerPacket;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
+import net.novaplay.library.utils.ByteBufUtils;
 
 public class PlayerInfoPacket extends Packet implements IServerPacket{
 
@@ -17,18 +17,18 @@ public class PlayerInfoPacket extends Packet implements IServerPacket{
 	
 	@Override
 	public void read(ByteBuf byteBuf) throws Exception {
-		player = ByteBufferUtils.readString(byteBuf);
-		uuid = ByteBufferUtils.readUUID(byteBuf);
-		serverId = ByteBufferUtils.readString(byteBuf);
+		player = ByteBufUtils.readString(byteBuf);
+		uuid = ByteBufUtils.readUUID(byteBuf);
+		serverId = ByteBufUtils.readString(byteBuf);
 		online = byteBuf.readBoolean();
 		handled = byteBuf.readBoolean();
 	}
 
 	@Override
 	public void write(ByteBuf byteBuf) throws Exception {
-		ByteBufferUtils.writeString(byteBuf,player);
-		ByteBufferUtils.writeUUID(byteBuf,uuid);
-		ByteBufferUtils.writeString(byteBuf,serverId);
+		ByteBufUtils.writeString(byteBuf,player);
+		ByteBufUtils.writeUUID(byteBuf,uuid);
+		ByteBufUtils.writeString(byteBuf,serverId);
 		byteBuf.writeBoolean(online);
 		byteBuf.writeBoolean(handled);
 	}

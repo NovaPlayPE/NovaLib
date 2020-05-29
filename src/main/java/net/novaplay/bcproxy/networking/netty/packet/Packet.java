@@ -1,4 +1,4 @@
-package net.novaplay.library.netty.packet;
+package net.novaplay.bcproxy.networking.netty.packet;
 
 import io.netty.buffer.ByteBuf;
 import lombok.Getter;

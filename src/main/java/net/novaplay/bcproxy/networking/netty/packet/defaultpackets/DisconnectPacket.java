@@ -1,7 +1,7 @@
-package net.novaplay.library.netty.packet.defaultpackets;
+package net.novaplay.bcproxy.networking.netty.packet.defaultpackets;
 
-import net.novaplay.library.netty.packet.Packet;
 import io.netty.buffer.ByteBuf;
+import net.novaplay.bcproxy.networking.netty.packet.Packet;
 
 import java.io.IOException;
 
