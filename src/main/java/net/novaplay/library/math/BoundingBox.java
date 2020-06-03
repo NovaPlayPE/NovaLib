@@ -207,6 +207,12 @@ public class BoundingBox implements Cloneable {
 		double newMaxZ = Math.min(this.maxZ, other.maxZ);
 		return this.resize(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
 	}
+	
+	public boolean intersects(BoundingBox other) {
+		return (this.getMinY() < other.getMaxY() && this.getMaxY() > other.getMinY())
+				&& (this.getMinZ() < other.getMaxZ() && this.getMaxZ() > other.getMinZ())
+				&& (this.getMinX() < other.getMaxX() && this.getMaxX() > other.getMinX());
+	}
 
 	public BoundingBox shift(double shiftX, double shiftY, double shiftZ) {
 		if (shiftX == 0.0D && shiftY == 0.0D && shiftZ == 0.0D)
@@ -217,6 +223,25 @@ public class BoundingBox implements Cloneable {
 
 	public BoundingBox shift(Vector3d shift) {
 		return this.shift(shift.getX(), shift.getY(), shift.getZ());
+	}
+	
+	private boolean overlaps(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		return this.minX < maxX && this.maxX > minX && this.minY < maxY && this.maxY > minY && this.minZ < maxZ
+				&& this.maxZ > minZ;
+	}
+	public boolean overlaps(BoundingBox other) {
+		return this.overlaps(other.minX, other.minY, other.minZ, other.maxX, other.maxY, other.maxZ);
+	}
+	
+	public boolean overlaps(Vector3d min, Vector3d max) {
+		double x1 = min.getX();
+		double y1 = min.getY();
+		double z1 = min.getZ();
+		double x2 = max.getX();
+		double y2 = max.getY();
+		double z2 = max.getZ();
+		return this.overlaps(Math.min(x1, x2), Math.min(y1, y2), Math.min(z1, z2), Math.max(x1, x2), Math.max(y1, y2),
+				Math.max(z1, z2));
 	}
 	
 	public boolean contains(Vector3d min, Vector3d max) {
