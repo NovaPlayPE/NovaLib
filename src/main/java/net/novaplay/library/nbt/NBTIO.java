@@ -2,16 +2,22 @@ package net.novaplay.library.nbt;
 
 import java.io.DataInput;
 import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import com.google.common.io.LittleEndianDataInputStream;
+import com.google.common.io.LittleEndianDataOutputStream;
 
 import net.novaplay.library.nbt.tags.CompoundTag;
 import net.novaplay.library.nbt.tags.Tag;
@@ -38,6 +44,34 @@ public class NBTIO {
 			return (CompoundTag)tag;
 		}
 		throw new IOException("Root tag is not CompoundTag");
+	}
+	
+	public static void write(CompoundTag tag, String path) throws IOException {
+		write(tag, new File(path));
+	}
+	
+	public static void write(CompoundTag tag, File file) throws IOException {
+		write(tag, file, ByteOrder.LITTLE_ENDIAN);
+	}
+	
+	public static void write(CompoundTag tag, File file, ByteOrder order) throws IOException {
+		write(tag, file, order, true);
+	}
+	
+	public static void write(CompoundTag tag, File file, ByteOrder order, boolean compress) throws IOException {
+		if(!file.exists()) {
+			if(file.getParentFile() != null && !file.getParentFile().exists()) {
+				file.mkdirs();
+			}
+			file.createNewFile();
+		}
+		
+		OutputStream out = new FileOutputStream(file);
+		if(compress) {
+			out = new GZIPOutputStream(out);
+		}
+		writeTag(out, tag, order);
+		out.close();
 	}
 	
 	public static Tag readTag(InputStream in, ByteOrder order) throws NullPointerException, IOException {
@@ -67,6 +101,35 @@ public class NBTIO {
 			
 		}
 		return tag;
+	}
+	
+	public static void writeTag(OutputStream out, Tag tag, ByteOrder order) throws NullPointerException, IOException {
+		DataOutput output;
+		if(order == ByteOrder.LITTLE_ENDIAN) {
+			output = new LittleEndianDataOutputStream(out);
+		} else {
+			output = new DataOutputStream(out);
+		}
+		writeTag(output, tag);
+	}
+	
+	public static void writeTag(DataOutput out, Tag tag) throws NullPointerException, IOException {
+		if(tag == null) out.writeByte(0);
+		
+		NbtType t = matchForTag(tag);
+		out.writeInt(t.getId());
+		out.writeUTF(tag.getName());
+		tag.write(out);
+		
+	}
+	
+	public static NbtType matchForTag(Tag tag) {
+		for(NbtType type : nbtTypes) {
+			if(type.getClassInstance() == tag.getClass()) {
+				return type;
+			}
+		}
+		return null;
 	}
 	
 	public static NbtType matchForType(int type) {
