@@ -1,7 +1,6 @@
 package net.novaplay.library.nbt;
 
-import net.novaplay.library.nbt.tags.CompoundTag;
-import net.novaplay.library.nbt.tags.Tag;
+import net.novaplay.library.nbt.tags.*;
 
 public enum NbtType {
 	
@@ -31,6 +30,20 @@ public enum NbtType {
 	
 	public Class<? extends Tag> getClassInstance(){
 		switch(this.getId()) {
+		case 0:
+			return null;
+		case 1:
+			return ByteTag.class;
+		case 2:
+			return ShortTag.class;
+		case 3:
+			return IntTag.class;
+		case 4:
+			return LongTag.class;
+		case 5:
+			return FloatTag.class;
+		case 6:
+			return DoubleTag.class;
 		case 10:
 			return CompoundTag.class;
 		}

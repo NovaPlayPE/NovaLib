@@ -114,7 +114,7 @@ public class NBTIO {
 	}
 	
 	public static void writeTag(DataOutput out, Tag tag) throws NullPointerException, IOException {
-		if(tag == null) out.writeByte(0);
+		if(tag == null) {out.writeByte(0);return;}
 		
 		NbtType t = matchForTag(tag);
 		out.writeInt(t.getId());
