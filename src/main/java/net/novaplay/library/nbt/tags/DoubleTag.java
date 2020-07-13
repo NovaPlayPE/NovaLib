@@ -8,6 +8,10 @@ public class DoubleTag extends Tag {
 
 	private double value;
 	
+	public DoubleTag(String name) {
+		this(name, 0D);
+	}
+	
 	public DoubleTag(String name, double value) {
 		super(name);
 		this.value = value;

@@ -8,6 +8,10 @@ public class ByteTag extends Tag {
 
 	private byte value;
 	
+	public ByteTag(String name) {
+		this(name, (byte)0);
+	}
+	
 	public ByteTag(String name, byte value) {
 		super(name);
 		this.value = value;

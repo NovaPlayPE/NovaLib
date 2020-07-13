@@ -8,6 +8,10 @@ public class IntTag extends Tag {
 
 	private int value;
 	
+	public IntTag(String name) {
+		this(name, 0);
+	}
+	
 	public IntTag(String name, int value) {
 		super(name);
 		this.value = value;

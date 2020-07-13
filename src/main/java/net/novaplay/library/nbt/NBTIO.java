@@ -27,7 +27,26 @@ public class NBTIO {
 	private static ArrayList<NbtType> nbtTypes = new ArrayList<NbtType>();
 	
 	static {
+		nbtTypes.add(NbtType.BYTE);
+		nbtTypes.add(NbtType.SHORT);
+		nbtTypes.add(NbtType.INT);
+		nbtTypes.add(NbtType.LONG);
+		nbtTypes.add(NbtType.FLOAT);
+		nbtTypes.add(NbtType.DOUBLE);
+		nbtTypes.add(NbtType.BYTE_ARRAY);
+		nbtTypes.add(NbtType.STRING);
+		nbtTypes.add(NbtType.LIST);
 		nbtTypes.add(NbtType.COMPOUND);
+		nbtTypes.add(NbtType.INT_ARRAY);
+		nbtTypes.add(NbtType.LONG_ARRAY);
+	}
+	
+	public static CompoundTag read(String path) throws IOException {
+		return read(new File(path));
+	}
+	
+	public static CompoundTag read(File file) throws IOException{
+		return read(file, ByteOrder.LITTLE_ENDIAN);
 	}
 	
 	public static CompoundTag read(File file, ByteOrder order) throws IOException {
@@ -86,7 +105,7 @@ public class NBTIO {
 	}
 	
 	public static Tag readTag(DataInput in) throws NullPointerException, IOException {
-		int type = in.readByte();
+		int type = in.readUnsignedByte();
 		if(type == 0) return null;
 		
 		String name = in.readUTF();
@@ -117,10 +136,19 @@ public class NBTIO {
 		if(tag == null) {out.writeByte(0);return;}
 		
 		NbtType t = matchForTag(tag);
-		out.writeInt(t.getId());
+		out.writeByte(t.getId());
 		out.writeUTF(tag.getName());
 		tag.write(out);
 		
+	}
+	
+	public static NbtType matchForClass(Class<? extends Tag> clazz) {
+		for(NbtType type : nbtTypes) {
+			if(type.getClassInstance() == clazz) {
+				return type;
+			}
+		}
+		return null;
 	}
 	
 	public static NbtType matchForTag(Tag tag) {

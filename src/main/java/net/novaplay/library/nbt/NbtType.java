@@ -44,8 +44,18 @@ public enum NbtType {
 			return FloatTag.class;
 		case 6:
 			return DoubleTag.class;
+		case 7:
+			return ByteArrayTag.class;
+		case 8:
+			return StringTag.class;
+		case 9:
+			return ListTag.class;
 		case 10:
 			return CompoundTag.class;
+		case 11:
+			return IntArrayTag.class;
+		case 12:
+			return LongArrayTag.class;
 		}
 		return null;
 	}

@@ -4,33 +4,32 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class ShortTag extends Tag {
-
-	private short value;
+public class StringTag extends Tag {
 	
-	public ShortTag(String name) {
-		this(name, (short)0);
+	private String value;
+	
+	public StringTag(String name) {
+		this(name, "");
 	}
 	
-	public ShortTag(String name, short value) {
+	public StringTag(String name, String value) {
 		super(name);
 		this.value = value;
 	}
 	
 	@Override
-	public Short getValue() {
+	public String getValue() {
 		return this.value;
 	}
 
 	@Override
 	public void read(DataInput in) throws IOException {
-		this.value = in.readShort();
-
+		this.value = in.readUTF();
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
-		out.writeShort(this.value);
+		out.writeUTF(this.value);
 	}
 
 }

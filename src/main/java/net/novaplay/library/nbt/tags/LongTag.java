@@ -8,6 +8,10 @@ public class LongTag extends Tag {
 
 	private long value;
 	
+	public LongTag(String name) {
+		this(name, 0L);
+	}
+	
 	public LongTag(String name, long value) {
 		super(name);
 		this.value = value;

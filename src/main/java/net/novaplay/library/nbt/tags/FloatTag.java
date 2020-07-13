@@ -8,6 +8,10 @@ public class FloatTag extends Tag {
 
 	private float value;
 	
+	public FloatTag(String name) {
+		this(name, 0F);
+	}
+	
 	public FloatTag(String name, float value) {
 		super(name);
 		this.value = value;
