@@ -63,6 +63,11 @@
             <artifactId>cassandra-driver-core</artifactId>
             <version>3.0.3</version>
         </dependency>
+        <dependency>
+    		<groupId>com.github.luben</groupId>
+    		<artifactId>zstd-jni</artifactId>
+    		<version>1.4.1-1</version>
+		</dependency>
     </dependencies>
     <properties>
     	<maven.compiler.source>1.8</maven.compiler.source>

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import com.github.luben.zstd.ZstdInputStream;
+import com.github.luben.zstd.ZstdOutputStream;
 import com.google.common.io.LittleEndianDataInputStream;
 import com.google.common.io.LittleEndianDataOutputStream;
 
@@ -56,7 +58,7 @@ public class NBTIO {
 	public static CompoundTag read(File file, ByteOrder order, boolean compress) throws IOException {
 		InputStream in = new FileInputStream(file);
 		if(compress) {
-			in = new GZIPInputStream(in);
+			in = new ZstdInputStream(in);
 		}
 		Tag tag = readTag(in,order);
 		if(tag instanceof CompoundTag) {
@@ -87,7 +89,7 @@ public class NBTIO {
 		
 		OutputStream out = new FileOutputStream(file);
 		if(compress) {
-			out = new GZIPOutputStream(out);
+			out = new ZstdOutputStream(out);
 		}
 		writeTag(out, tag, order);
 		out.close();
