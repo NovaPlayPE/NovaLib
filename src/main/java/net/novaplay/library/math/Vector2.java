@@ -18,4 +18,30 @@ public class Vector2 {
 		this.y = y;
 	}
 	
+	public static Vector2 fromVector(Vector3d v) {
+		return fromVector(v, Exclude.Y);
+	}
+	
+	public static Vector2 fromVector(Vector3d v, Exclude e) {
+		Vector2 vector = null;
+		switch(e) {
+		case X:
+			vector = new Vector2(v.getY(), v.getZ());
+			break;
+		case Y:
+			vector = new Vector2(v.getX(), v.getZ());
+			break;
+		case Z:
+			vector = new Vector2(v.getX(), v.getY());
+			break;
+		}
+		return vector;
+	}
+	
+}
+
+enum Exclude{
+	X,
+	Y,
+	Z;
 }

@@ -3,7 +3,7 @@ package net.novaplay.library.physics;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Speed {
+public class Velocity {
 	
 	@Getter
 	@Setter
