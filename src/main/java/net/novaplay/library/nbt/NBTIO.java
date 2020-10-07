@@ -55,10 +55,18 @@ public class NBTIO {
 		return read(file,order,true);
 	}
 	
-	public static CompoundTag read(File file, ByteOrder order, boolean compress) throws IOException {
+	public static CompoundTag read(File file, ByteOrder order, boolean compress) throws IOException{
+		return read(file,order,compress, CompressType.GZIP);
+	}
+	
+	public static CompoundTag read(File file, ByteOrder order, boolean compress, CompressType type) throws IOException {
 		InputStream in = new FileInputStream(file);
 		if(compress) {
-			in = new ZstdInputStream(in);
+			if(type == CompressType.GZIP) {
+				in = new GZIPInputStream(in);
+			} else {
+				in = new ZstdInputStream(in);
+			}
 		}
 		Tag tag = readTag(in,order);
 		if(tag instanceof CompoundTag) {
@@ -80,6 +88,10 @@ public class NBTIO {
 	}
 	
 	public static void write(CompoundTag tag, File file, ByteOrder order, boolean compress) throws IOException {
+		write(tag,file,order,compress, CompressType.GZIP);
+	}
+	
+	public static void write(CompoundTag tag, File file, ByteOrder order, boolean compress, CompressType type) throws IOException {
 		if(!file.exists()) {
 			if(file.getParentFile() != null && !file.getParentFile().exists()) {
 				file.mkdirs();
@@ -89,7 +101,11 @@ public class NBTIO {
 		
 		OutputStream out = new FileOutputStream(file);
 		if(compress) {
-			out = new ZstdOutputStream(out);
+			if(type == CompressType.GZIP) {
+				out = new GZIPOutputStream(out);
+			} else {
+				out = new ZstdOutputStream(out);
+			}
 		}
 		writeTag(out, tag, order);
 		out.close();
@@ -169,6 +185,11 @@ public class NBTIO {
 			}
 		}
 		return null;
+	}
+	
+	public enum CompressType{
+		GZIP,
+		ZSTD;
 	}
 	
 }
