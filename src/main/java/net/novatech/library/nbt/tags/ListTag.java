@@ -15,7 +15,7 @@ import net.novatech.library.nbt.NbtType;
 public class ListTag extends Tag {
 
 	private List<Tag> value;
-	private Class<? extends Tag> clazz;
+	private Class<? extends Tag> clazz = null;
 	
 	public ListTag(String name) {
 		super(name);
@@ -35,14 +35,15 @@ public class ListTag extends Tag {
 		}
 	}
 	
-	public boolean add(@NonNull Tag tag) throws IllegalArgumentException {
+	public ListTag add(@NonNull Tag tag) throws IllegalArgumentException {
 		if(this.clazz == null) {
 			this.clazz = tag.getClass();
 		} else if(this.clazz != tag.getClass()) {
 			throw new IllegalArgumentException("Tried to add " + tag.getClass().getName() + " to a list defined by " + clazz.getName());
 		}
 		
-		return this.value.add(tag);
+		this.value.add(tag);
+		return this;
 	}
 	
 	@Override

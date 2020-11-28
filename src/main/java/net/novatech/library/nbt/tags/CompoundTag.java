@@ -24,13 +24,18 @@ public class CompoundTag extends Tag {
 		this.value = value;
 	}
 	
-	public Tag add(Tag tag) {
-		return this.value.put(tag.getName(), tag);
+	public CompoundTag add(Tag tag) {
+		this.value.put(tag.getName(), tag);
+		return this;
 	}
 	
 	@Override
 	public Map<String, Tag> getValue() {
 		return this.value;
+	}
+	
+	public Tag getValue(String key) {
+		return getValue().get(key);
 	}
 
 	@Override
