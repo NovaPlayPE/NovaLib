@@ -265,6 +265,10 @@ public class BoundingBox implements Cloneable {
 	}
 	
 	public RayTrace rayTrace(Vector3d start, Vector3d direction, double maxDistance) {
+		return rayTrace(start, direction, maxDistance, true);
+	}
+	
+	public RayTrace rayTrace(Vector3d start, Vector3d direction, double maxDistance, boolean isCubisticGame) {
 		double startX = start.getX();
 		double startY = start.getY();
 		double startZ = start.getZ();
@@ -280,53 +284,91 @@ public class BoundingBox implements Cloneable {
 		
 		double tMin;
 		double tMax;
+		CubisticFace hitFaceMin = CubisticFace.WEST;
+		CubisticFace hitFaceMax = CubisticFace.EAST;
 		
 		if(dirX >= 0.0D) {
 			tMin = (this.minX - startX) * divX;
 			tMax = (this.maxX - startX) * divX;
+			hitFaceMin = CubisticFace.WEST;
+			hitFaceMax = CubisticFace.EAST;
 		} else {
 			tMin = (this.maxX - startX) * divX;
 			tMax = (this.minX - startX) * divX;
+			hitFaceMin = CubisticFace.EAST;
+			hitFaceMax = CubisticFace.WEST;
 		}
 		
 		double tyMin;
 		double tyMax;
+		CubisticFace hitFaceYMin = CubisticFace.UP;
+		CubisticFace hitFaceYMax = CubisticFace.DOWN;
 		
 		if(dirY >= 0.0D) {
 			tyMin = (this.minY - startY) * divY;
 			tyMax = (this.maxY - startY) * divY;
+			if(isCubisticGame) {
+				hitFaceYMin = CubisticFace.DOWN;
+				hitFaceYMax = CubisticFace.UP;
+			}
 		} else {
 			tyMin = (this.maxY - startY) * divY;
 			tyMax = (this.minY - startY) * divY;
+			if(isCubisticGame) {
+				hitFaceYMin = CubisticFace.UP;
+				hitFaceYMax = CubisticFace.DOWN;
+			}
 		}
 		if((tMin > tyMax) || (tMax < tyMin)) {
 			return null;
 		}
 		if(tyMin > tMin) {
 			tMin = tyMin;
+			if(isCubisticGame) {
+				hitFaceMin = hitFaceYMin;
+			}
 		}
 		if(tyMax < tMax) {
 			tMax = tyMax;
+			if(isCubisticGame) {
+				hitFaceMax = hitFaceYMax;
+			}
 		}
 		
 		double tzMin;
 		double tzMax;
+		CubisticFace hitFaceZMin = CubisticFace.NORTH;
+		CubisticFace hitFaceZMax = CubisticFace.SOUTH;
 		
 		if(dirZ >= 0.0D) {
 			tzMin = (this.minZ - startZ) * divZ;
 			tzMax = (this.maxZ - startZ) * divZ;
+			if(isCubisticGame) {
+				hitFaceZMin = CubisticFace.NORTH;
+				hitFaceZMax = CubisticFace.SOUTH;
+			}
 		} else {
 			tzMin = (this.maxZ - startZ) * divZ;
 			tzMax = (this.minZ - startZ) * divZ;
+			if(isCubisticGame) {
+				hitFaceZMin = CubisticFace.SOUTH;
+				hitFaceZMax = CubisticFace.NORTH;
+			}
 		}
 		if((tMin > tzMax) || (tMax < tzMin)) {
 			return null;
 		}
 		if(tzMin > tMin) {
 			tMin = tzMin;
+			if(isCubisticGame) {
+				hitFaceMin = hitFaceZMin;
+			}
 		}
 		if(tzMax < tMax) {
 			tMax = tzMax;
+			if(isCubisticGame) {
+				hitFaceMax = hitFaceZMax;
+			}
 		}
 		
 		if(tMax < 0.0D) {
@@ -337,13 +379,24 @@ public class BoundingBox implements Cloneable {
 		}
 		
 		double t;
+		CubisticFace hitFace = CubisticFace.NORTH;
 		if(tMin < 0.0D) {
 			t = tMax;
+			if(isCubisticGame) {
+				hitFace = hitFaceMax;
+			}
 		} else {
 			t = tMin;
+			if(isCubisticGame) {
+				hitFace = hitFaceMin;
+			}
 		}
 		
 		Vector3d hit = dir.multiply(t).add(start);
+		if(isCubisticGame) {
+			return new RayTrace(start, hit, hitFace);
+		}
+		
 		return new RayTrace(start, hit);
 	}
 

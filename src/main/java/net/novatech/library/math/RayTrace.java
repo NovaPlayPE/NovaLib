@@ -13,16 +13,25 @@ public class RayTrace {
 	@Setter
 	public Vector3d direction;
 	
+	@Getter
+	@Setter
+	private CubisticFace cubisticFace;
+	
 	private boolean isFinite;
 	
 	public RayTrace(Vector3d begin, Vector3d direction) {
-		this(begin, direction, true);
+		this(begin, direction, null);
 	}
 	
-	public RayTrace(Vector3d begin, Vector3d direction, boolean isFinite) {
+	public RayTrace(Vector3d begin, Vector3d direction, CubisticFace face) {
+		this(begin, direction, true, face);
+	}
+	
+	public RayTrace(Vector3d begin, Vector3d direction, boolean isFinite, CubisticFace face) {
 		this.beginPosition = begin;
 		this.direction = direction;
 		this.isFinite = isFinite;
+		this.cubisticFace = face;
 	}
 	
 	public boolean isFinite() {
