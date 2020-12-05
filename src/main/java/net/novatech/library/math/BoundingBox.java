@@ -263,6 +263,89 @@ public class BoundingBox implements Cloneable {
 		return this.minX <= minX && this.maxX >= maxX && this.minY <= minY && this.maxY >= maxY && this.minZ <= minZ
 				&& this.maxZ >= maxZ;
 	}
+	
+	public RayTrace rayTrace(Vector3d start, Vector3d direction, double maxDistance) {
+		double startX = start.getX();
+		double startY = start.getY();
+		double startZ = start.getZ();
+		
+		Vector3d dir = direction.clone().normalize();
+		double dirX = dir.getX();
+		double dirY = dir.getY();
+		double dirZ = dir.getZ();
+		
+		double divX = 1.0D / dirX;
+		double divY = 1.0D / dirY;
+		double divZ = 1.0D / dirZ;
+		
+		double tMin;
+		double tMax;
+		
+		if(dirX >= 0.0D) {
+			tMin = (this.minX - startX) * divX;
+			tMax = (this.maxX - startX) * divX;
+		} else {
+			tMin = (this.maxX - startX) * divX;
+			tMax = (this.minX - startX) * divX;
+		}
+		
+		double tyMin;
+		double tyMax;
+		
+		if(dirY >= 0.0D) {
+			tyMin = (this.minY - startY) * divY;
+			tyMax = (this.maxY - startY) * divY;
+		} else {
+			tyMin = (this.maxY - startY) * divY;
+			tyMax = (this.minY - startY) * divY;
+		}
+		if((tMin > tyMax) || (tMax < tyMin)) {
+			return null;
+		}
+		if(tyMin > tMin) {
+			tMin = tyMin;
+		}
+		if(tyMax < tMax) {
+			tMax = tyMax;
+		}
+		
+		double tzMin;
+		double tzMax;
+		
+		if(dirZ >= 0.0D) {
+			tzMin = (this.minZ - startZ) * divZ;
+			tzMax = (this.maxZ - startZ) * divZ;
+		} else {
+			tzMin = (this.maxZ - startZ) * divZ;
+			tzMax = (this.minZ - startZ) * divZ;
+		}
+		if((tMin > tzMax) || (tMax < tzMin)) {
+			return null;
+		}
+		if(tzMin > tMin) {
+			tMin = tzMin;
+		}
+		if(tzMax < tMax) {
+			tMax = tzMax;
+		}
+		
+		if(tMax < 0.0D) {
+			return null;
+		}
+		if(tMin > maxDistance) {
+			throw new MathematicException("[RayTrace] Ray was set as infinite...");
+		}
+		
+		double t;
+		if(tMin < 0.0D) {
+			t = tMax;
+		} else {
+			t = tMin;
+		}
+		
+		Vector3d hit = dir.multiply(t).add(start);
+		return new RayTrace(start, hit);
+	}
 
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -291,6 +374,17 @@ public class BoundingBox implements Cloneable {
 		} catch (CloneNotSupportedException e) {
 			throw new Error(e);
 		}
+	}
+	
+	
+	
+	enum BoundingBoxSide{
+		BOTTOM,
+		TOP,
+		FRONT,
+		BACK,
+		RIGHT,
+		LEFT
 	}
 	
 }
