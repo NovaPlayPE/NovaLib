@@ -37,6 +37,60 @@ public class CompoundTag extends Tag {
 	public Tag getValue(String key) {
 		return getValue().get(key);
 	}
+	
+	public StringTag getStringValue(String key) {
+		if(getValue(key) instanceof StringTag) {
+			return (StringTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a String tag");
+	}
+	
+	public ByteTag getByteValue(String key) {
+		if(getValue(key) instanceof ByteTag) {
+			return (ByteTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a Byte tag");
+	}
+	public IntTag getIntValue(String key) {
+		if(getValue(key) instanceof IntTag) {
+			return (IntTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a Int tag");
+	}
+	public FloatTag getFloatValue(String key) {
+		if(getValue(key) instanceof FloatTag) {
+			return (FloatTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a Float tag");
+	}
+	
+	public DoubleTag getDoubleValue(String key) {
+		if(getValue(key) instanceof DoubleTag) {
+			return (DoubleTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not Double tag");
+	}
+	
+	public ShortTag getShortValue(String key) {
+		if(getValue(key) instanceof ShortTag) {
+			return (ShortTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a Short tag");
+	}
+	
+	public CompoundTag getCompoundValue(String key) {
+		if(getValue(key) instanceof CompoundTag) {
+			return (CompoundTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a Compound tag");
+	}
+	
+	public ListTag getListValue(String key) {
+		if(getValue(key) instanceof ListTag) {
+			return (ListTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not a List tag");
+	}
 
 	@Override
 	public void read(DataInput in) throws IOException{
