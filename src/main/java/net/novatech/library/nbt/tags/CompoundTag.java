@@ -71,6 +71,13 @@ public class CompoundTag extends Tag {
 		throw new IllegalArgumentException("Current tag with this key is not Double tag");
 	}
 	
+	public LongTag getLongValue(String key) {
+		if(getValue(key) instanceof LongTag) {
+			return (LongTag)getValue(key);
+		}
+		throw new IllegalArgumentException("Current tag with this key is not Long tag");
+	}
+	
 	public ShortTag getShortValue(String key) {
 		if(getValue(key) instanceof ShortTag) {
 			return (ShortTag)getValue(key);
