@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-public class Vector3f implements Cloneable{
+public class Vector3f implements Vector<Vector3f>, Cloneable{
 
 	
 	@Getter
