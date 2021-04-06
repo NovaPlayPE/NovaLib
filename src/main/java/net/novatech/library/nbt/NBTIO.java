@@ -122,6 +122,11 @@ public class NBTIO {
 		
 	}
 	
+	public static Tag readTag(InputStream in, NBTStream stream) throws NullPointerException, IOException{
+		DataInput input = stream.getInputData(in);
+		return readTag(input);
+	}
+	
 	public static Tag readTag(DataInput in) throws NullPointerException, IOException {
 		int type = in.readUnsignedByte();
 		if(type == 0) return null;
@@ -147,6 +152,11 @@ public class NBTIO {
 		} else {
 			output = new DataOutputStream(out);
 		}
+		writeTag(output, tag);
+	}
+	
+	public static void writeTag(OutputStream out, Tag tag, NBTStream stream) throws NullPointerException, IOException {
+		DataOutput output = stream.getOutputData(out);
 		writeTag(output, tag);
 	}
 	
