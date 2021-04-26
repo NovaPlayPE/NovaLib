@@ -264,11 +264,11 @@ public class BoundingBox implements Cloneable {
 				&& this.maxZ >= maxZ;
 	}
 	
-	public RayTrace rayTrace(Vector3d start, Vector3d direction, double maxDistance) {
+	public RayTrace3 rayTrace(Vector3d start, Vector3d direction, double maxDistance) {
 		return rayTrace(start, direction, maxDistance, true);
 	}
 	
-	public RayTrace rayTrace(Vector3d start, Vector3d direction, double maxDistance, boolean isCubisticGame) {
+	public RayTrace3 rayTrace(Vector3d start, Vector3d direction, double maxDistance, boolean isCubisticGame) {
 		double startX = start.getX();
 		double startY = start.getY();
 		double startZ = start.getZ();
@@ -394,10 +394,10 @@ public class BoundingBox implements Cloneable {
 		
 		Vector3d hit = dir.multiply(t).add(start);
 		if(isCubisticGame) {
-			return new RayTrace(start, hit, hitFace);
+			return new RayTrace3(start, hit, true, hitFace);
 		}
 		
-		return new RayTrace(start, hit);
+		return new RayTrace3(start, hit,true,null);
 	}
 
 	public boolean equals(Object obj) {

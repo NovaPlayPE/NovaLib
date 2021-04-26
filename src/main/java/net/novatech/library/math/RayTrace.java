@@ -7,43 +7,45 @@ public class RayTrace {
 	
 	@Getter
 	@Setter
-	public Vector3d beginPosition = null;
+	public Vector beginPosition = null;
 	
 	@Getter
 	@Setter
-	public Vector3d direction;
-	
+	public Vector direction;
 	@Getter
-	@Setter
-	private CubisticFace cubisticFace;
-	
+	private boolean bothDirection = false;
+		
 	private boolean isFinite;
 	
-	public RayTrace(Vector3d begin, Vector3d direction) {
-		this(begin, direction, null);
+	public RayTrace(Vector begin, Vector direction) {
+		this(begin, direction, true);
 	}
 	
-	public RayTrace(Vector3d begin, Vector3d direction, CubisticFace face) {
-		this(begin, direction, true, face);
-	}
 	
-	public RayTrace(Vector3d begin, Vector3d direction, boolean isFinite, CubisticFace face) {
+	public RayTrace(Vector begin, Vector direction, boolean isFinite) {
 		this.beginPosition = begin;
 		this.direction = direction;
 		this.isFinite = isFinite;
-		this.cubisticFace = face;
 	}
 	
 	public boolean isFinite() {
 		return this.isFinite;
 	}
 	
-	public Vector3d getEnd() {
+	public Vector getEnd() {
 		if(isFinite()) {
 			return this.direction;
 		} else {
 			throw new MathematicException("RayTrace has no end position");
 		}
+	}
+	
+	public void setLineDirection(boolean enable) {
+		if(!isFinite()) {
+			bothDirection = enable;
+			return;
+		}
+		throw new MathematicException("Non-endless rayTrace cannot be set to both directions");
 	}
 	
 }
