@@ -9,6 +9,17 @@ import io.netty.buffer.ByteBuf;
 
 public class ByteBufUtils {
 	
+	public static void writeByteArray(ByteBuf buf, byte[] array) {
+		writeUnsignedVarInt(buf, array.length);
+		buf.writeBytes(array);
+	}
+	
+	public static byte[] readByteArray(ByteBuf buf) {
+		byte[] array = new byte[readUnsignedVarInt(buf)];
+		buf.readBytes(array);
+		return array;
+	}
+	
 	public static void writeString(ByteBuf buf, String string) {
 		buf.writeInt(string.length());
 		buf.writeCharSequence(string, Charsets.UTF_8);
