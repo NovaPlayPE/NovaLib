@@ -75,5 +75,37 @@ public class ByteBufUtils {
 		}
 		return value | (b << i);
 	}
+	
+	public static void writeSignedVarLong(ByteBuf buf, long value) {
+		writeUnsignedVarLong(buf, (value << 1) ^ (value >> 63));
+	}
+	
+	public static long readSignedVarLong(ByteBuf buf) {
+		long raw = readUnsignedVarLong(buf);
+		long temp = (((raw << 63) >> 63) ^ raw) >> 1;
+		return temp ^ (raw & (1L << 63));
+	}
+	
+	public static void writeUnsignedVarLong(ByteBuf buf, long value) {
+		while((value & 0xFFFFFFFFFFFFFF80L) != 0L) {
+			buf.writeByte(((int) value & 0x7F) | 0x80);
+			value >>>= 7;
+		}
+		buf.writeByte((int) value & 0x7F);
+	}
+	
+	public static long readUnsignedVarLong(ByteBuf buf) {
+		long value = 0L;
+		int i = 0;
+		int b;
+		while(((b = buf.readByte()) & 0x80) != 0) {
+			value |= (b & 0x7F) << i;
+			i +=7;
+			if(i > 63) {
+				System.out.println("ngth is too big");
+			}
+		}
+		return value | (b << i);
+	}
 
 }
