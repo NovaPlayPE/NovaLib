@@ -21,6 +21,9 @@ import com.github.luben.zstd.ZstdOutputStream;
 import com.google.common.io.LittleEndianDataInputStream;
 import com.google.common.io.LittleEndianDataOutputStream;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufInputStream;
+import io.netty.buffer.ByteBufOutputStream;
 import net.novatech.library.nbt.tags.CompoundTag;
 import net.novatech.library.nbt.tags.Tag;
 
@@ -122,6 +125,11 @@ public class NBTIO {
 		
 	}
 	
+	public static Tag readTag(ByteBuf buf, NBTStream stream) throws NullPointerException, IOException{
+		ByteBufInputStream in = new ByteBufInputStream(buf);
+		return readTag(in, stream);
+	}
+	
 	public static Tag readTag(InputStream in, NBTStream stream) throws NullPointerException, IOException{
 		DataInput input = stream.getInputData(in);
 		return readTag(input);
@@ -153,6 +161,11 @@ public class NBTIO {
 			output = new DataOutputStream(out);
 		}
 		writeTag(output, tag);
+	}
+	
+	public static void writeTag(ByteBuf buf, Tag tag, NBTStream stream) throws NullPointerException, IOException {
+		ByteBufOutputStream out = new ByteBufOutputStream(buf);
+		writeTag(out, tag, stream);
 	}
 	
 	public static void writeTag(OutputStream out, Tag tag, NBTStream stream) throws NullPointerException, IOException {
