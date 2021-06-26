@@ -3,7 +3,15 @@ package net.novatech.library.utils;
 public class BitsUtils {
 	
 	static byte[] result = new byte[4];
-
+	
+	public static byte addValue(byte original, byte value) {
+		return original |= value;
+	}
+	
+	public static boolean checkValue(byte original, byte value) {
+		return (original & value) != 0;
+	}
+	
 	public static int packInt(short left, short right) {
 		return (left << 16) | (right & 0xFFF);
 	}

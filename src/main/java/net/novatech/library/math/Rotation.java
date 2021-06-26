@@ -14,8 +14,13 @@ public class Rotation implements Cloneable{
 	@Setter
 	public float pitch;
 	
+	@Getter
+	@Setter
+	public float headYaw;
+	
 	public Rotation(@NonNull float yaw, @NonNull float pitch) {
 		this.yaw = yaw;
+		this.headYaw = yaw;
 		this.pitch = pitch;
 	}
 	
