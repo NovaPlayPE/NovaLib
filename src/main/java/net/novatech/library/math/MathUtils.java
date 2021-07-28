@@ -140,5 +140,56 @@ public class MathUtils {
 			throw new IllegalArgumentException(message);
 		}
 	}
+	
+	public static boolean isInRange(int number, int begin, int end) {
+		return isInRange(number, begin, end, false, false);
+	}
+	
+	public static boolean isInRange(int number, int begin, int end, boolean closedBegin, boolean closedEnd) {
+		if(closedBegin && closedEnd) {
+			return number >= begin && number <= end;
+		} else if(closedBegin && !closedEnd) {
+			return number >= begin && number < end;
+		} else if(!closedBegin && closedEnd) {
+			return number > begin && number <= end;
+		} else if(!(closedBegin && closedEnd)) {
+			return number > begin && number < end;
+		}
+		return false;
+	}
+	
+	public static boolean isInRange(double number, double begin, double end) {
+		return isInRange(number, begin, end, false, false);
+	}
+	
+	public static boolean isInRange(double number, double begin, double end, boolean closedBegin, boolean closedEnd) {
+		if(closedBegin && closedEnd) {
+			return number >= begin && number <= end;
+		} else if(closedBegin && !closedEnd) {
+			return number >= begin && number < end;
+		} else if(!closedBegin && closedEnd) {
+			return number > begin && number <= end;
+		} else if(!(closedBegin && closedEnd)) {
+			return number > begin && number < end;
+		}
+		return false;
+	}
+	
+	public static boolean isInRange(float number, float begin, float end) {
+		return isInRange(number, begin, end, false, false);
+	}
+	
+	public static boolean isInRange(float number, float begin, float end, boolean closedBegin, boolean closedEnd) {
+		if(closedBegin && closedEnd) {
+			return number >= begin && number <= end;
+		} else if(closedBegin && !closedEnd) {
+			return number >= begin && number < end;
+		} else if(!closedBegin && closedEnd) {
+			return number > begin && number <= end;
+		} else if(!(closedBegin && closedEnd)) {
+			return number > begin && number < end;
+		}
+		return false;
+	}
 
 }
