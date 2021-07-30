@@ -23,6 +23,7 @@ public enum SystemOS {
 	}
 
 	public static final SystemOS CURRENT_OS;
+	public static final String SYSTEM_NAME;
 	public static final int TOTAL_MEMORY;
 
 	public static final int SUGGESTED_MEMORY;
@@ -50,6 +51,7 @@ public enum SystemOS {
 		else
 			CURRENT_OS = UNKNOWN;
 
+		SYSTEM_NAME = name;
 		TOTAL_MEMORY = getTotalPhysicalMemorySize().map(bytes -> (int) (bytes / 1024 / 1024)).orElse(1024);
 		SUGGESTED_MEMORY = (int) (Math.round(1.0 * TOTAL_MEMORY / 4.0 / 128.0) * 128);
 
