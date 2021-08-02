@@ -4,8 +4,43 @@ import java.io.*;
 import java.nio.charset.Charset;
 
 public class IOUtils {
+	
+	public static final String SIZE_B = "bytes";
+	public static final String SIZE_KB = "kilobytes";
+	public static final String SIZE_MB = "megabytes";
+	public static final String SIZE_GB = "gigabytes";
 
 	public static final int DEFAULT_BUFFER_SIZE = 8 * 1024;
+	
+	public static double getFolderSize(File file, String size) {
+		long bytes = getFolderSizeInBytes(file);
+		
+		return switch(size) {
+			case SIZE_B -> (double) bytes;
+			case SIZE_KB -> (double) bytes / 1024;
+			case SIZE_MB -> (double) bytes / 1024 / 1024;
+			case SIZE_GB -> (double) bytes / 1024 / 1024/ 1024;
+			default -> throw new IllegalArgumentException("No such size value implemented: " + size);
+		};
+	}
+	
+	public static long getFolderSizeInBytes(File file) {
+		long size = 0;
+		if(file.isDirectory()) {
+			if(file.listFiles() != null) {
+				for(File f : file.listFiles()) {
+					if(f.isDirectory()) {
+						size += getFolderSizeInBytes(f);
+					} else {
+						size += f.length();
+					}
+				}
+			}
+		} else if(file.isFile()) {
+			size += file.length();
+		}
+		return size;
+	}
 	
 	public static byte[] readFullyWithoutClosing(InputStream stream) throws IOException {
 		ByteArrayOutputStream result = new ByteArrayOutputStream();
