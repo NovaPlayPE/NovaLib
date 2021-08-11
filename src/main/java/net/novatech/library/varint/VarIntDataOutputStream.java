@@ -1,4 +1,4 @@
-package net.novatech.library.utils;
+package net.novatech.library.varint;
 
 import java.io.DataOutput;
 import java.io.FilterOutputStream;

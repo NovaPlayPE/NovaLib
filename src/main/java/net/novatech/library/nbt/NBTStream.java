@@ -12,8 +12,8 @@ import com.google.common.io.LittleEndianDataInputStream;
 import com.google.common.io.LittleEndianDataOutputStream;
 
 import lombok.Getter;
-import net.novatech.library.utils.VarIntDataInputStream;
-import net.novatech.library.utils.VarIntDataOutputStream;
+import net.novatech.library.varint.VarIntDataInputStream;
+import net.novatech.library.varint.VarIntDataOutputStream;
 
 public enum NBTStream {
 	

@@ -1,6 +1,9 @@
-package net.novatech.library.utils;
+package net.novatech.library.io;
 
 import java.util.*;
+
+import net.novatech.library.utils.SystemOS;
+
 import java.io.*;
 
 public class StringUtils {

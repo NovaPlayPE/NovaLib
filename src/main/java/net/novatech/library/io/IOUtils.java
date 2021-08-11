@@ -1,4 +1,4 @@
-package net.novatech.library.utils;
+package net.novatech.library.io;
 
 import java.io.*;
 import java.nio.charset.Charset;

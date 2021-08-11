@@ -1,7 +1,11 @@
-package net.novatech.library.utils;
+package net.novatech.library.net;
 
 import java.util.*;
 import java.util.Map.Entry;
+
+import net.novatech.library.io.IOUtils;
+import net.novatech.library.io.StringUtils;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.net.*;
@@ -127,14 +131,21 @@ public class NetworkUtils {
     public static String doPost(URL u, String post) throws IOException {
         return doPost(u, post, "application/x-www-form-urlencoded");
     }
-
+    
     public static String doPost(URL url, String post, String contentType) throws IOException {
+    	return doPost(url, post, contentType, false, "");
+    }
+
+    public static String doPost(URL url, String post, String contentType, boolean auth, String authToken) throws IOException {
         byte[] bytes = post.getBytes(StandardCharsets.UTF_8);
 
         HttpURLConnection con = createHttpConnection(url);
         con.setRequestMethod("POST");
         con.setDoOutput(true);
         con.setRequestProperty("Content-Type", contentType + "; charset=utf-8");
+        if(auth) {
+        	con.setRequestProperty("Authorization", authToken);
+        }
         con.setRequestProperty("Content-Length", "" + bytes.length);
         try (OutputStream os = con.getOutputStream()) {
             os.write(bytes);
