@@ -3,6 +3,9 @@ package net.novatech.library.math;
 import lombok.NonNull;
 
 public class MathUtils {
+	
+	public static double degreesToRadians = Math.PI / 180;
+	public static double radiansToDegrees = 180 / Math.PI;
 
 	public static int floor(double num) {
 		final int floor = (int) num;

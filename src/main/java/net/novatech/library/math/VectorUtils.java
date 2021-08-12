@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class VectorUtils {
 	
-	public final double calculateDistance(Vector2 from, Vector2 to, boolean squared) {
+	public static final double calculateDistance(Vector2 from, Vector2 to, boolean squared) {
 		double xDis = to.getX() - from.getX();
 		double yDis = to.getY() - from.getY();
 		
@@ -15,7 +15,7 @@ public class VectorUtils {
 		return Math.sqrt(distanceSquared);
 	}
 	
-	public final Vector3d rotateAroundAxisX(Vector3d vec, double angle) {
+	public static final Vector3d rotateAroundAxisX(Vector3d vec, double angle) {
         double y, z, cos, sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
@@ -26,7 +26,7 @@ public class VectorUtils {
         return vec;
     }
 
-    public final Vector3d rotateAroundAxisY(Vector3d vec, double angle) {
+    public static final Vector3d rotateAroundAxisY(Vector3d vec, double angle) {
         double x, z, cos, sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
@@ -37,7 +37,7 @@ public class VectorUtils {
         return vec;
     }
 
-    public final Vector3d rotateAroundAxisZ(Vector3d vec, double angle) {
+    public static final Vector3d rotateAroundAxisZ(Vector3d vec, double angle) {
         double x, y, cos, sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
@@ -48,7 +48,7 @@ public class VectorUtils {
         return vec;
     }
 
-    public final Vector3d rotateVector(Vector3d vec, double angleX, double angleY, double angleZ) {
+    public static final Vector3d rotateVector(Vector3d vec, double angleX, double angleY, double angleZ) {
         rotateAroundAxisX(vec, angleX);
         rotateAroundAxisY(vec, angleY);
         rotateAroundAxisZ(vec,angleZ);
@@ -79,12 +79,27 @@ public class VectorUtils {
 
         return new Vector3d(x, y, z);
     }
+    
+    public static final Vector2 rotate(Vector2 v, double degrees) {
+    	double cos = Math.cos(Math.toRadians(degrees));
+    	double sin = Math.sin(Math.toRadians(degrees));
+    	
+    	double newX, newY;
+    	double x,y;
+    	
+    	newX = v.getX() * cos - v.getY() * sin;
+    	newY = v.getX() * sin - v.getY() * cos;
+    	x = newX;
+    	y = newY;
+    	
+    	return new Vector2(x,y);
+    }
 
-    public final double angleToXAxis(Vector3d v) {
+    public static final double angleToXAxis(Vector3d v) {
         return Math.atan2(v.getX(), v.getY());
     }
     
-    public final ArrayList<Vector3d> calculate2dCircle(Vector3d d, double radius) {
+    public static final ArrayList<Vector3d> calculate2dCircle(Vector3d d, double radius) {
     	ArrayList<Vector3d> circle = new ArrayList<Vector3d>();
     	ArrayList<Vector3d> circledCalculation = new ArrayList<Vector3d>();
     	for(int i = 0; i <= 2 * Math.PI; i++) {
@@ -114,7 +129,7 @@ public class VectorUtils {
     	return circle;
     }
     
-    public final ArrayList<Vector3d> calculate2dCircleInside(Vector3d v, double radius, double precision) {
+    public static final ArrayList<Vector3d> calculate2dCircleInside(Vector3d v, double radius, double precision) {
     	ArrayList<Vector3d> circle = new ArrayList<Vector3d>();
     	double exponent = Math.pow(radius,2);
     	Vector3d rV = new Vector3d(radius, radius, radius);
@@ -138,7 +153,7 @@ public class VectorUtils {
     	return circle;
     }
     
-    public final ArrayList<Vector3d> calculateSphere(Vector3d v, double radius, double precision, boolean fill){
+    public static final ArrayList<Vector3d> calculateSphere(Vector3d v, double radius, double precision, boolean fill){
     	ArrayList<Vector3d> sphere = new ArrayList<Vector3d>();
     	double exponent = Math.pow(radius,2);
     	Vector3d rV = new Vector3d(radius, radius, radius);
