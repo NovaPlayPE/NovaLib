@@ -306,6 +306,16 @@ public class Reflect {
             throw new ReflectException(e);
         }
     }
+    
+    public <T> T newInstance() {
+    	return this.newInstance(new Object[0]);
+    }
+    
+    public <T> T newInstance(Object... args) {
+    	if(!this.isClass) throw new ReflectException("This object isn't class");
+    	Reflect r = create(args);
+    	return r.get();
+    }
 
     public <P> P as(Class<P> proxyType) {
         final boolean isMap = this.object instanceof Map;
