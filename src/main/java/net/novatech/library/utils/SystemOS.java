@@ -24,6 +24,7 @@ public enum SystemOS {
 
 	public static final SystemOS CURRENT_OS;
 	public static final String SYSTEM_NAME;
+	public static final String CURRENT_USER;
 	public static final int TOTAL_MEMORY;
 
 	public static final int SUGGESTED_MEMORY;
@@ -42,16 +43,18 @@ public enum SystemOS {
 
 	static {
 		String name = System.getProperty("os.name").toLowerCase(Locale.US);
-		if(name.contains("win"))
+		if(name.contains("win")) {
 			CURRENT_OS = WINDOWS;
-		else if(name.contains("mac"))
+		} else if(name.contains("mac")) {
 			CURRENT_OS = OSX;
-		else if(name.contains("solaris") || name.contains("linux") || name.contains("unix") || name.contains("sunos"))
+		} else if(name.contains("solaris") || name.contains("linux") || name.contains("unix") || name.contains("sunos")) {
 			CURRENT_OS = LINUX;
-		else
+		} else {
 			CURRENT_OS = UNKNOWN;
-
+		}
+		
 		SYSTEM_NAME = name;
+		CURRENT_USER = System.getProperty("user.name");
 		TOTAL_MEMORY = getTotalPhysicalMemorySize().map(bytes -> (int) (bytes / 1024 / 1024)).orElse(1024);
 		SUGGESTED_MEMORY = (int) (Math.round(1.0 * TOTAL_MEMORY / 4.0 / 128.0) * 128);
 
