@@ -194,5 +194,9 @@ public class MathUtils {
 		}
 		return false;
 	}
+	
+	public static int rand(int begin, int end) {
+		return (int) (Math.random()*(end - begin)) + begin;
+	}
 
 }
