@@ -15,6 +15,7 @@ net\novatech\library\reflection\ReflectException.class
 net\novatech\library\nbt\NBTStream.class
 net\novatech\library\nbt\tags\ByteArrayTag.class
 net\novatech\library\nbt\tags\ShortTag.class
+net\novatech\library\utils\ConsoleColor$1.class
 net\novatech\library\noise\RandomVectors.class
 net\novatech\library\varint\VarIntDataOutputStream.class
 net\novatech\library\nbt\NBTIO$CompressType.class
@@ -44,12 +45,14 @@ net\novatech\library\reflection\Reflect.class
 net\novatech\library\noise\Noise.class
 net\novatech\library\net\CloudflareUtils.class
 net\novatech\library\crypto\NativeProcessor.class
+net\novatech\library\logger\Logger.class
 net\novatech\library\math\MathematicException.class
 net\novatech\library\nbt\NBTIO.class
 net\novatech\library\nbt\NBTStream$1.class
 net\novatech\library\varint\VarInt.class
 net\novatech\library\crypto\SizedMemoryPointer.class
 net\novatech\library\math\Vector3f.class
+net\novatech\library\utils\ConsoleColor.class
 net\novatech\library\nbt\tags\Tag.class
 net\novatech\library\io\ByteBufUtils.class
 net\novatech\library\nbt\tags\StringTag.class
@@ -61,4 +64,5 @@ net\novatech\library\nbt\NbtType.class
 net\novatech\library\math\MathUtils.class
 net\novatech\library\nbt\tags\IntTag.class
 net\novatech\library\math\Rotation.class
+net\novatech\library\utils\ConsoleColor$2.class
 net\novatech\library\io\IOUtils.class

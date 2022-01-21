@@ -8,6 +8,7 @@ C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\NbtType.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\tags\ListTag.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\math\RayTraceEquation.java
+C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\logger\Logger.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\tags\IntTag.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\tags\IntArrayTag.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\utils\SystemOS.java
@@ -19,6 +20,7 @@ C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\reflection\ReflectException.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\tags\LongArrayTag.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\tags\LongTag.java
+C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\utils\ConsoleColor.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\math\Vector2.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\math\BoundingBox.java
 C:\Users\gebab\Desktop\WallServer\JavaBedrock\library\src\main\java\net\novatech\library\nbt\tags\CompoundTag.java
