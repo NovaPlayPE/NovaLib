@@ -53,6 +53,7 @@ net\novatech\library\varint\VarInt.class
 net\novatech\library\crypto\SizedMemoryPointer.class
 net\novatech\library\math\Vector3f.class
 net\novatech\library\utils\ConsoleColor.class
+net\novatech\library\accessibility\Internal.class
 net\novatech\library\nbt\tags\Tag.class
 net\novatech\library\io\ByteBufUtils.class
 net\novatech\library\nbt\tags\StringTag.class
