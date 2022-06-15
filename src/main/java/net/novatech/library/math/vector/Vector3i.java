@@ -1,111 +1,102 @@
-package net.novatech.library.math;
+package net.novatech.library.math.vector;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import net.novatech.library.math.MathUtils;
 
-public class Vector3f implements Vector<Vector3f>, Cloneable{
+public class Vector3i extends Vector3<Integer> implements Vector<Vector3i>, Cloneable{
 
-	
-	@Getter
-	@Setter
-	public float x;
-	@Getter
-	@Setter
-	public float y;
-	@Getter
-	@Setter
-	public float z;
 
-	public Vector3f(@NonNull float x, @NonNull float y, @NonNull float z) {
+	public Vector3i(@NonNull int x, @NonNull int y, @NonNull int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Vector3f) {
-			Vector3f v = (Vector3f) obj;
+		if(obj instanceof Vector3i) {
+			Vector3i v = (Vector3i) obj;
 			return this.x == v.x && this.y == v.y && this.z == v.z;
 		}
 		return false;
 	}
 	
-	public Vector3f add(double value) {
+	public Vector3i add(int value) {
 		this.x += value;
 		this.y += value;
 		this.z += value;
 		return this;
 	}
 
-	public Vector3f add(@NonNull Vector3f v) {
+	public Vector3i add(@NonNull Vector3i v) {
 		this.x += v.x;
 		this.y += v.y;
 		this.z += v.z;
 		return this;
 	}
 
-	public Vector3f subtract(double value) {
+	public Vector3i subtract(int value) {
 		this.x -= value;
 		this.y -= value;
 		this.z -= value;
 		return this;
 	}
 
-	public Vector3f subtract(@NonNull Vector3f v) {
+	public Vector3i subtract(@NonNull Vector3i v) {
 		this.x -= v.x;
 		this.y -= v.y;
 		this.z -= v.z;
 		return this;
 	}
 
-	public Vector3f multiply(double value) {
+	public Vector3i multiply(int value) {
 		this.x *= value;
 		this.y *= value;
 		this.z *= value;
 		return this;
 	}
 
-	public Vector3f multiply(@NonNull Vector3f v) {
+	public Vector3i multiply(@NonNull Vector3i v) {
 		this.x *= v.x;
 		this.y *= v.y;
 		this.z *= v.z;
 		return this;
 	}
 
-	public Vector3f divide(double value) {
+	public Vector3i divide(int value) {
 		this.x /= value;
 		this.y /= value;
 		this.z /= value;
 		return this;
 	}
 
-	public Vector3f divide(@NonNull Vector3f v) {
+	public Vector3i divide(@NonNull Vector3i v) {
 		this.x /= v.x;
 		this.y /= v.y;
 		this.z /= v.z;
 		return this;
 	}
 
-	public Vector3f copy(@NonNull Vector3f v) {
+	public Vector3i copy(@NonNull Vector3i v) {
 		this.x = v.x;
 		this.y = v.y;
 		this.z = v.z;
 		return this;
 	}
 
-	public Vector3f normalize() {
-		double length = length();
+	public Vector3i normalize() {
+		int length = (int)length();
 		this.x /= length;
 		this.y /= length;
 		this.z /= length;
 		return this;
 	}
 
-	public Vector3f zero() {
-		this.x = 0F;
-		this.y = 0F;
-		this.z = 0F;
+	public Vector3i zero() {
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
 		return this;
 	}
 
@@ -117,29 +108,29 @@ public class Vector3f implements Vector<Vector3f>, Cloneable{
 		return MathUtils.square(this.x) + MathUtils.square(this.y) + MathUtils.square(this.z);
 	}
 
-	public double distance(@NonNull Vector3f v) {
+	public double distance(@NonNull Vector3d v) {
 		return Math
 				.sqrt(MathUtils.square(this.x - v.x) + MathUtils.square(this.y - v.y) + MathUtils.square(this.z - v.z));
 	}
 
-	public double distanceSquared(@NonNull Vector3f v) {
+	public double distanceSquared(@NonNull Vector3d v) {
 		return MathUtils.square(this.x - v.x) + MathUtils.square(this.y - v.y) + MathUtils.square(this.z - v.z);
 	}
 
-	public float angle(@NonNull Vector3f other) {
+	public float angle(@NonNull Vector3i other) {
 		double dot = MathUtils.constrainDoubleToRange(dot(other) / (length() * other.length()), -1.0, 1.0);
 
 		return (float) Math.acos(dot);
 	}
 
-	public double dot(@NonNull Vector3f other) {
+	public double dot(@NonNull Vector3i other) {
 		return this.x * other.x + this.y * other.y + this.z * other.z;
 	}
 
-	public Vector3f crossProduct(@NonNull Vector3f o) {
-		float newX = this.y * o.z - o.y * this.z;
-		float newY = this.z * o.x - o.z * this.x;
-		float newZ = this.x * o.y - o.x * this.y;
+	public Vector3i crossProduct(@NonNull Vector3i o) {
+		int newX = this.y * o.z - o.y * this.z;
+		int newY = this.z * o.x - o.z * this.x;
+		int newZ = this.x * o.y - o.x * this.y;
 
 		this.x = newX;
 		this.y = newY;
@@ -147,25 +138,25 @@ public class Vector3f implements Vector<Vector3f>, Cloneable{
 		return this;
 	}
 
-	public Vector3f getCrossProduct(@NonNull Vector3f o) {
-		float x = this.y * o.z - o.y * this.z;
-		float y = this.z * o.x - o.z * this.x;
-		float z = this.x * o.y - o.x * this.y;
-		return new Vector3f(x, y, z);
+	public Vector3i getCrossProduct(@NonNull Vector3i o) {
+		int x = this.y * o.z - o.y * this.z;
+		int y = this.z * o.x - o.z * this.x;
+		int z = this.x * o.y - o.x * this.y;
+		return new Vector3i(x, y, z);
 	}
 
-	public Vector3f midpoint(@NonNull Vector3f other) {
+	public Vector3i midpoint(@NonNull Vector3i other) {
 		x = (x + other.x) / 2;
 		y = (y + other.y) / 2;
 		z = (z + other.z) / 2;
 		return this;
 	}
 
-	public Vector3f getMidpoint(@NonNull Vector3f other) {
-		float x = (this.x + other.x) / 2;
-		float y = (this.y + other.y) / 2;
-		float z = (this.z + other.z) / 2;
-		return new Vector3f(x, y, z);
+	public Vector3i getMidpoint(@NonNull Vector3i other) {
+		int x = (this.x + other.x) / 2;
+		int y = (this.y + other.y) / 2;
+		int z = (this.z + other.z) / 2;
+		return new Vector3i(x, y, z);
 	}
     
     public Vector3d asDouble() {
@@ -173,14 +164,14 @@ public class Vector3f implements Vector<Vector3f>, Cloneable{
     	return vec;
     }
     
-    public Vector3i asInt() {
-    	Vector3i vec = new Vector3i((int)getX(),(int)getY(),(int)getZ());
+    public Vector3f asFloat() {
+    	Vector3f vec = new Vector3f((float)getX(),(float)getY(),(float)getZ());
     	return vec;
     }
 	
-	public Vector3f clone() {
+	public Vector3i clone() {
 		try {
-            return (Vector3f) super.clone();
+            return (Vector3i) super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }

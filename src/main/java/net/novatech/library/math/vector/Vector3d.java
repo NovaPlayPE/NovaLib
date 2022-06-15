@@ -1,20 +1,12 @@
-package net.novatech.library.math;
+package net.novatech.library.math.vector;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import net.novatech.library.math.ConversionUtil;
+import net.novatech.library.math.MathUtils;
 
-public class Vector3d implements Vector<Vector3d>, Cloneable {
-
-	@Getter
-	@Setter
-	public double x;
-	@Getter
-	@Setter
-	public double y;
-	@Getter
-	@Setter
-	public double z;
+public class Vector3d extends Vector3<Double> implements Vector<Vector3d>, Cloneable {
 
 	public Vector3d(@NonNull double x, @NonNull double y, @NonNull double z) {
 		this.x = x;
@@ -168,12 +160,12 @@ public class Vector3d implements Vector<Vector3d>, Cloneable {
 	}
 
 	public Vector3f asFloat() {
-		Vector3f vec = new Vector3f((float) getX(), (float) getY(), (float) getZ());
+		Vector3f vec = new Vector3f(ConversionUtil.floatFromDouble(getX()), ConversionUtil.floatFromDouble(getY()), ConversionUtil.floatFromDouble(getZ()));
 		return vec;
 	}
 
 	public Vector3i asInt() {
-		Vector3i vec = new Vector3i((int) getX(), (int) getY(), (int) getZ());
+		Vector3i vec = new Vector3i(ConversionUtil.intFromDouble(getX()), ConversionUtil.intFromDouble(getY()), ConversionUtil.intFromDouble(getZ()));
 		return vec;
 	}
 

@@ -1,4 +1,4 @@
-package net.novatech.library.math;
+package net.novatech.library.math.vector;
 
 public interface Vector<T extends Vector<T>>{
 	

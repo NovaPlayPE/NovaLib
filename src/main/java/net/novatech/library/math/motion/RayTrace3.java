@@ -1,7 +1,9 @@
-package net.novatech.library.math;
+package net.novatech.library.math.motion;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.novatech.library.math.CubisticFace;
+import net.novatech.library.math.vector.Vector;
 
 public class RayTrace3 extends RayTrace{
 	

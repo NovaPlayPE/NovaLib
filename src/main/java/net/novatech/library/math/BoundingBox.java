@@ -2,6 +2,8 @@ package net.novatech.library.math;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.novatech.library.math.motion.RayTrace3;
+import net.novatech.library.math.vector.Vector3d;
 
 public class BoundingBox implements Cloneable {
 
