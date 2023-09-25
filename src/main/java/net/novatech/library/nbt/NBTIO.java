@@ -147,6 +147,7 @@ public class NBTIO {
 			Constructor<? extends Tag> constructor = clazz.getDeclaredConstructor(String.class);
 			constructor.setAccessible(true);
 			tag = constructor.newInstance(name);
+			tag.read(in);
 		} catch(Exception e) {
 			
 		}
