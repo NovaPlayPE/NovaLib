@@ -45,7 +45,6 @@ net\novatech\library\nbt\tags\ByteTag.class
 net\novatech\library\math\VectorUtils.class
 net\novatech\library\utils\SystemOS.class
 net\novatech\library\math\Trigonometry.class
-net\novatech\library\net\CloudflareUtils$CloudflareConfig.class
 net\novatech\library\math\vector\Vector2.class
 net\novatech\library\callback\Callback.class
 net\novatech\library\reflection\Reflect$NULL.class
@@ -56,7 +55,6 @@ net\novatech\library\math\BoundingBox$BoundingBoxSide.class
 net\novatech\library\reflection\Reflect.class
 net\novatech\library\math\vector\Vector.class
 net\novatech\library\noise\Noise.class
-net\novatech\library\net\CloudflareUtils.class
 net\novatech\library\sql\utils\Column.class
 net\novatech\library\crypto\NativeProcessor.class
 net\novatech\library\math\vector\Exclude.class
