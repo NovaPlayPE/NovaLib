@@ -1,5 +1,6 @@
 package net.novatech.library.io;
 
+import java.math.BigInteger;
 import java.util.*;
 
 import com.google.common.base.Charsets;
@@ -8,6 +9,38 @@ import com.google.common.base.Preconditions;
 import io.netty.buffer.ByteBuf;
 
 public class ByteBufUtils {
+	
+	public static void writeUnsignedShort(ByteBuf buf, int value) {
+        Preconditions.checkArgument(value >= 0 && value <= 0xFFFF, "Value must be between 0 and 65535");
+        buf.writeShort((short) value);
+    }
+
+    public static int readUnsignedShort(ByteBuf buf) {
+        return buf.readUnsignedShort();
+    }
+
+    public static void writeUnsignedInt(ByteBuf buf, long value) {
+        Preconditions.checkArgument(value >= 0 && value <= 0xFFFFFFFFL, "Value must be between 0 and 4294967295");
+        buf.writeInt((int) value);
+    }
+
+    public static long readUnsignedInt(ByteBuf buf) {
+        return buf.readUnsignedInt();
+    }
+
+    public static void writeUnsignedLong(ByteBuf buf, BigInteger value) {
+        Preconditions.checkArgument(value.signum() >= 0 && value.bitLength() <= 64, "Value must be between 0 and 2^64-1");
+        byte[] bytes = value.toByteArray();
+        int length = bytes.length;
+        Preconditions.checkArgument(length <= 8, "Value must fit into 8 bytes");
+        buf.writeBytes(bytes);
+    }
+
+    public static BigInteger readUnsignedLong(ByteBuf buf) {
+        byte[] bytes = new byte[8];
+        buf.readBytes(bytes);
+        return new BigInteger(1, bytes);
+    }
 	
 	public static void writeByteArray(ByteBuf buf, byte[] array) {
 		writeUnsignedVarInt(buf, array.length);
@@ -42,7 +75,6 @@ public class ByteBufUtils {
 			return null;
 		}
 	}
-	
 	
 	public static void writeSignedVarInt(ByteBuf buf, int integer) {
 		writeUnsignedVarInt(buf, (integer << 1) ^ (integer >> 31));

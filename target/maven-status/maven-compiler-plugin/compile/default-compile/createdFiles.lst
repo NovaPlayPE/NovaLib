@@ -3,7 +3,6 @@ net\novatech\library\utils\ZstdUtils$1.class
 net\novatech\library\net\NetworkUtils.class
 net\novatech\library\sql\sqlite3\SQLite3ConnectionInfo.class
 net\novatech\library\physics\Velocity.class
-net\novatech\library\utils\SystemOS$1.class
 net\novatech\library\nbt\tags\DoubleTag.class
 net\novatech\library\sql\utils\OrderType.class
 net\novatech\library\math\BoundingBox.class
@@ -61,7 +60,6 @@ net\novatech\library\math\vector\Exclude.class
 net\novatech\library\logger\Logger.class
 net\novatech\library\math\MathematicException.class
 net\novatech\library\nbt\NBTIO.class
-net\novatech\library\nbt\NBTStream$1.class
 net\novatech\library\varint\VarInt.class
 net\novatech\library\crypto\SizedMemoryPointer.class
 net\novatech\library\utils\ConsoleColor.class
